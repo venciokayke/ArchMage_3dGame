@@ -29,17 +29,6 @@ public class PlayerMovement : MonoBehaviour
             direcao.Normalize();
         }
 
-        if (direcao != Vector3.zero)
-        {
-            Quaternion rotacaoAlvo = Quaternion.LookRotation(direcao);
-
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                rotacaoAlvo,
-                velocidadeRotacao * Time.deltaTime
-            );
-        }
-
         animator.SetFloat("Speed", direcao.magnitude);
 
         controller.Move(
