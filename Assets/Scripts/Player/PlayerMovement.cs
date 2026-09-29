@@ -2,6 +2,15 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public float velocidadeDash = 12f;
+    public float duracaoDash = 0.2f;
+    public float cooldownDash = 1f;
+
+    private bool estaDashando = false;
+    private float tempoDashRestante;
+    private float proximoDashDisponivel;
+
+    private Vector3 direcaoDash;
     public float velocidade = 5f;
     public float gravidade = -9.81f;
     public float velocidadeRotacao = 10f;
@@ -23,6 +32,16 @@ public class PlayerMovement : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
 
         Vector3 direcao = new Vector3(horizontal, 0f, vertical);
+        if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time >= proximoDashDisponivel)
+        {
+            IniciarDash(direcao);
+        }
+
+        if (estaDashando)
+        {
+            ExecutarDash();
+            return;
+        }
 
         if (direcao.magnitude > 1f)
         {
@@ -45,5 +64,35 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(
             velocidadeVertical * Time.deltaTime
         );
+    }
+
+    void IniciarDash(Vector3 direcaoMovimento)
+    {
+        estaDashando = true;
+        tempoDashRestante = duracaoDash;
+        proximoDashDisponivel = Time.time + cooldownDash;
+
+        if (direcaoMovimento != Vector3.zero)
+        {
+            direcaoDash = direcaoMovimento.normalized;
+        }
+        else
+        {
+            direcaoDash = transform.forward;
+        }
+    }
+
+    void ExecutarDash()
+    {
+        controller.Move(
+            direcaoDash * velocidadeDash * Time.deltaTime
+        );
+
+        tempoDashRestante -= Time.deltaTime;
+
+        if (tempoDashRestante <= 0f)
+        {
+            estaDashando = false;
+        }
     }
 }
