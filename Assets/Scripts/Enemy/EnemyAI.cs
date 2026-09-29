@@ -17,7 +17,7 @@ public class EnemyAI : MonoBehaviour
 
     [Header("Ataque")]
     public float alcanceAtaque = 1.5f;
-    public float dano = 10f;
+    public int dano = 1;
     public float intervaloAtaque = 1.5f;
     // Tempo entre o início da animação de ataque e o golpe acertar.
     public float atrasoDoGolpe = 0.4f;
@@ -30,6 +30,7 @@ public class EnemyAI : MonoBehaviour
     private Vida vida;
     private Transform alvo;
     private Vida vidaAlvo;
+    private PlayerHp hpAlvo;
 
     private Estado estado = Estado.Parado;
     private Vector3 velocidadeVertical;
@@ -55,7 +56,9 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        if (alvo == null || (vidaAlvo != null && vidaAlvo.EstaMorto))
+        // O PlayerHp desativa o jogador quando ele morre.
+        if (alvo == null || !alvo.gameObject.activeInHierarchy
+            || (vidaAlvo != null && vidaAlvo.EstaMorto))
         {
             estado = Estado.Parado;
         }
@@ -104,6 +107,7 @@ public class EnemyAI : MonoBehaviour
         {
             alvo = jogador.transform;
             vidaAlvo = jogador.GetComponent<Vida>();
+            hpAlvo = jogador.GetComponent<PlayerHp>();
         }
     }
 
@@ -148,7 +152,16 @@ public class EnemyAI : MonoBehaviour
         momentoDoGolpe = -1f;
 
         // Só acerta se o jogador ainda estiver no alcance quando o golpe desce.
-        if (vidaAlvo != null && DistanciaHorizontal(alvo.position) <= alcanceAtaque * 1.2f)
+        if (DistanciaHorizontal(alvo.position) > alcanceAtaque * 1.2f)
+        {
+            return;
+        }
+
+        if (hpAlvo != null)
+        {
+            hpAlvo.ReceberDano(dano);
+        }
+        else if (vidaAlvo != null)
         {
             vidaAlvo.ReceberDano(dano);
         }

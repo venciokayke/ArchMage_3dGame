@@ -163,7 +163,7 @@ MonoBehaviour:
   raioDeteccao: 10
   raioPerderAlvo: 15
   alcanceAtaque: 1.5
-  dano: 10
+  dano: 1
   intervaloAtaque: 1.5
   atrasoDoGolpe: 0.4
   tempoParaSumir: 3

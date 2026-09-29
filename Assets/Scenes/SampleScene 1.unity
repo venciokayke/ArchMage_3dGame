@@ -1385,16 +1385,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1379894746}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06ea1b2b7916ecdcc4e8afac5346b928, type: 3}
+  m_Script: {fileID: 11500000, guid: a8a37f3f635e61f4e86457dc7c104713, type: 3}
   m_Name:
   m_EditorClassIdentifier:
-  vidaMaxima: 100
-  aoReceberDano:
-    m_PersistentCalls:
-      m_Calls: []
-  aoMorrer:
-    m_PersistentCalls:
-      m_Calls: []
+  vidaMaxima: 5
 --- !u!1001 &1500000001
 PrefabInstance:
   m_ObjectHideFlags: 0
