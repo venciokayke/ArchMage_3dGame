@@ -79,10 +79,15 @@ public class PlayerCombat : MonoBehaviour
         Quaternion rotacaoTiro =
             Quaternion.LookRotation(direcaoTiro.normalized);
 
-        Instantiate(
+        GameObject projetil = Instantiate(
             projectilePrefab,
             spellSpawnPoint.position,
             rotacaoTiro
         );
+
+        if (projetil.TryGetComponent(out Projectile magia))
+        {
+            magia.dono = transform;
+        }
     }
 }

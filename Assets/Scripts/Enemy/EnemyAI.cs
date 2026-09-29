@@ -22,6 +22,10 @@ public class EnemyAI : MonoBehaviour
     // Tempo entre o início da animação de ataque e o golpe acertar.
     public float atrasoDoGolpe = 0.4f;
 
+    [Header("Arma")]
+    public GameObject arma;
+    public string ossoDaMao = "handslot.r";
+
     [Header("Morte")]
     public float tempoParaSumir = 3f;
 
@@ -46,6 +50,7 @@ public class EnemyAI : MonoBehaviour
         vida.aoReceberDano.AddListener(AoReceberDano);
         vida.aoMorrer.AddListener(AoMorrer);
 
+        EquiparArma();
         EncontrarJogador();
     }
 
@@ -88,6 +93,42 @@ public class EnemyAI : MonoBehaviour
 
         controller.Move(direcao * velocidade * Time.deltaTime);
         AplicarGravidade();
+    }
+
+    private void EquiparArma()
+    {
+        if (arma == null)
+        {
+            return;
+        }
+
+        Transform mao = ProcurarFilho(transform, ossoDaMao);
+        if (mao == null)
+        {
+            Debug.LogWarning($"{name}: osso '{ossoDaMao}' não encontrado para equipar a arma.");
+            return;
+        }
+
+        Instantiate(arma, mao, false);
+    }
+
+    private static Transform ProcurarFilho(Transform pai, string nome)
+    {
+        foreach (Transform filho in pai)
+        {
+            if (filho.name == nome)
+            {
+                return filho;
+            }
+
+            Transform encontrado = ProcurarFilho(filho, nome);
+            if (encontrado != null)
+            {
+                return encontrado;
+            }
+        }
+
+        return null;
     }
 
     private void EncontrarJogador()

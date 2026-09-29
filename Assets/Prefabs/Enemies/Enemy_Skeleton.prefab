@@ -166,4 +166,6 @@ MonoBehaviour:
   dano: 1
   intervaloAtaque: 1.5
   atrasoDoGolpe: 0.4
+  arma: {fileID: 919132149155446097, guid: 218c85a72cc269444bd3be89f2a29c16, type: 3}
+  ossoDaMao: handslot.r
   tempoParaSumir: 3
