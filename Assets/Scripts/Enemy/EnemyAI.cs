@@ -170,6 +170,9 @@ public class EnemyAI : MonoBehaviour
         estado = Estado.Morto;
         momentoDoGolpe = -1f;
         SetFloat("Speed", 0f);
+        // O Hit do golpe fatal ainda está armado e tiraria o esqueleto da animação de morte.
+        ResetTrigger("Hit");
+        ResetTrigger("Attack");
         SetTrigger("Die");
 
         controller.enabled = false;
@@ -232,6 +235,14 @@ public class EnemyAI : MonoBehaviour
         if (TemParametro(nome, AnimatorControllerParameterType.Trigger))
         {
             animator.SetTrigger(nome);
+        }
+    }
+
+    private void ResetTrigger(string nome)
+    {
+        if (TemParametro(nome, AnimatorControllerParameterType.Trigger))
+        {
+            animator.ResetTrigger(nome);
         }
     }
 
