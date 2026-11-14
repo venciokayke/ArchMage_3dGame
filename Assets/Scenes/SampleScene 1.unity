@@ -1308,6 +1308,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95c2b49e39a30ef41a51036bb84823f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  velocidadeDash: 12
+  duracaoDash: 0.2
+  cooldownDash: 1
   velocidade: 5
   gravidade: -9.81
   velocidadeRotacao: 10
