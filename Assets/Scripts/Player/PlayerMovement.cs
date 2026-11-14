@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController), typeof(Animator))]
 public class PlayerMovement : MonoBehaviour
 {
     public float velocidadeDash = 12f;
@@ -24,8 +25,12 @@ public class PlayerMovement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        if (controller == null || animator == null)
+        {
+            Debug.LogError("PlayerMovement requer CharacterController e Animator.", this);
+            enabled = false;
+        }
     }
-
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -37,22 +42,18 @@ public class PlayerMovement : MonoBehaviour
             IniciarDash(direcao);
         }
 
-        if (estaDashando)
-        {
-            ExecutarDash();
-            return;
-        }
 
         if (direcao.magnitude > 1f)
         {
             direcao.Normalize();
         }
 
-        animator.SetFloat("Speed", direcao.magnitude);
+        animator.SetFloat("Speed", estaDashando ? 1f : direcao.magnitude);
 
-        controller.Move(
-            direcao * velocidade * Time.deltaTime
-        );
+        if (estaDashando)
+            ExecutarDash();
+        else
+            controller.Move(direcao * velocidade * Time.deltaTime);
 
         if (controller.isGrounded && velocidadeVertical.y < 0)
         {
@@ -85,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
     void ExecutarDash()
     {
         controller.Move(
-            direcaoDash * velocidadeDash * Time.deltaTime
+            direcaoDash * velocidadeDash * Mathf.Min(Time.deltaTime, tempoDashRestante)
         );
 
         tempoDashRestante -= Time.deltaTime;
@@ -94,5 +95,11 @@ public class PlayerMovement : MonoBehaviour
         {
             estaDashando = false;
         }
+    }
+
+    void OnDisable()
+    {
+        estaDashando = false;
+        velocidadeVertical = Vector3.zero;
     }
 }
