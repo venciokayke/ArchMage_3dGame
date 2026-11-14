@@ -15,6 +15,7 @@ public static class PlayerCombatSelfCheck
         var player = new GameObject("Combat self-check");
         var cameraObject = new GameObject("Combat self-check camera");
         var prefab = new GameObject("Combat self-check projectile");
+        prefab.AddComponent<Projectile>();
         var controller = new AnimatorController();
         controller.AddLayer("Base Layer");
         controller.AddParameter("Attack", AnimatorControllerParameterType.Trigger);
@@ -60,8 +61,12 @@ public static class PlayerCombatSelfCheck
             Check(CountClones(prefab.name) == before + 1, "Evento deve emitir uma magia.");
             foreach (var item in UnityEngine.Object.FindObjectsOfType<GameObject>())
                 if (item.name == prefab.name + "(Clone)")
+                {
                     Check(Vector3.Distance(item.transform.forward, aim) < 0.00001f,
                         "Projetil deve usar a direcao compartilhada mesmo se a mira ficar indisponivel apos aceitar.");
+                    Check(item.GetComponent<Projectile>().dono == player.transform,
+                        "Projetil deve identificar o conjurador para preservar as colisoes da main.");
+                }
             combat.LancarMagia();
             Check(CountClones(prefab.name) == before + 1, "Evento duplicado nao pode emitir outra magia.");
             Call(combat, "Atacar");

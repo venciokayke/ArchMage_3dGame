@@ -148,6 +148,8 @@ public class PlayerCombat : MonoBehaviour
         ataquePendente = false;
         AplicarMira();
         var projectile = Instantiate(projectilePrefab, spellSpawnPoint.position, Quaternion.LookRotation(direcaoMira));
+        if (projectile.TryGetComponent(out Projectile magia))
+            magia.dono = transform;
         Diagnostico($"INSTANCIADO ataque={ataqueAtual} objeto={projectile.GetInstanceID()} direcao={direcaoMira}");
     }
 
