@@ -185,6 +185,12 @@ public class EnemyAI : MonoBehaviour
 
     private void AplicarGolpePendente()
     {
+        if (alvo == null || !alvo.gameObject.activeInHierarchy || (vidaAlvo != null && vidaAlvo.EstaMorto))
+        {
+            momentoDoGolpe = -1f;
+            return;
+        }
+
         if (momentoDoGolpe < 0f || Time.time < momentoDoGolpe)
         {
             return;
