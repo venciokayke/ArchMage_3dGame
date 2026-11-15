@@ -69,7 +69,7 @@ Pendentes exclusivamente no Editor interativo: validar sensacao/animacoes dos mo
 
 Estado de retomada: runtime, ferramenta segura e suites concluidos; nao refazer CP1/CP2. Proxima sessao deve aplicar/validar na arena e corrigir apenas problemas observados. O arquivo nao rastreado Assets/Generated/UnderdogSurvival/EditorBuildSettings.backup.txt.meta apareceu no import do Editor; foi preservado e ficou fora dos commits de IA. Commits locais de implementacao: e4de539 e 30e7d51; o commit deste checkpoint sucede ambos.
 
-## CP4 concluido — partida bloqueada pelo Pause do Editor (2026-11-15)
+## CP4 concluido — protecao de feedback; hipotese de pausa nao confirmada (2026-11-15)
 
 Usuario relatou que Iniciar/Enter nao respondiam e confirmou que o botao Pause da Unity estava azul. Com o Editor pausado, os frames de gameplay e callbacks de inicio nao avancam. Nao foi identificado defeito novo no binding do botao ou na progressao das ondas. O log do Editor tambem registra NullReferenceException em CombatFeedback.Restore/OnDisable apos recompilacoes; essa excecao pode acionar Error Pause. Nao foi possivel inspecionar ou alterar o estado vivo do Editor por Pipeline (indisponivel nesta Unity 2022.3).
 
@@ -82,3 +82,17 @@ Validacoes: regressao nova falhou antes da correcao com a mesma NullReferenceExc
 Alteracoes locais encontradas e preservadas: Melee/Fast/Ranged.prefab, UnderdogSurvival.unity (ajuste de fonte), nova pasta EnemyAI_20261115_143647 e seus metas. Nao inclui-las no commit desta correcao. Checkpoint anterior d667a11 permanece como baseline de IA.
 
 Aplicacao/teste manual pendente: parar Play, aguardar compilacao, limpar erros antigos do Console, entrar novamente em Play e garantir que Pause nao esteja azul. Testar Iniciar, repetir com Enter e observar o comeco da primeira onda. Error Pause pode continuar habilitado; nao ocultar erros novos. Na proxima sessao, consultar este checkpoint e confirmar o teste no Editor antes de investigar outros sistemas.
+
+## CP5 concluido — inicio validado com a cena real (2026-11-15)
+
+Correcao do diagnostico: o usuario esclareceu que o botao reagia mas o painel continuava na tela; a conclusao anterior que atribuiu o bloqueio ao Pause foi insuficiente. CP4 comprovou/corrigiu somente a excecao independente do feedback, nao a causa desse relato de inicio. Nao assumir que testes sinteticos de ondas vazias validam o clique na cena real.
+
+Foi preparada uma copia isolada da UnderdogSurvival atual com 129 assets/settings e dependencias reais (22.4 MiB), mantendo GUIDs, modelos, Controllers, configuracoes e pacotes locais, em Temp/StartSceneVerification. Teste Unity 2022.3.62f3 PlayMode carregou a cena, entregou evento de clique ao Button real, verificou mudanca Inicio -> Jogando, painel fechado, PlayerMovement/PlayerCombat habilitados e primeiro inimigo da primeira onda. PASS antes e depois de incorporar a checagem repetivel. XML final em Docs/Validation/ActualSceneStart-PlayMode.xml.
+
+Na tentativa seguinte do proprio usuario, a captura temporaria no Editor registrou: playing=True, paused=False, frame=57, time=0.9488879, scale=1, NavMesh=490 vertices, WaveManager ativo em Jogando, painel inicial False, HP=100, movimento/combate ativos e um listener runtime no botao. O usuario confirmou: "agora desapareceu". Primeira onda agendada para time=4.698767 (intervalo inicial existente de 4 s). Portanto o inicio foi confirmado na sessao atual; nao foi identificado defeito reproduzivel adicional que justificasse alterar WaveManager, HUD, input ou ondas. Causa pontual do comportamento anterior permanece sem comprovacao; nao declarar uma nova correcao de gameplay.
+
+Novo arquivo Assets/Tests/Editor/MatchStartChecks.cs (+ meta): Tools > Underdog > Check Match Start (Play Mode). Executar com a partida ainda na tela inicial e Play sem pausa. A checagem aciona o evento do botao existente e observa painel, comandos e primeiro spawn, sem alterar configuracao/quantidades. Nao simula o dispositivo fisico de mouse nem joga as cinco ondas completas. A captura temporaria StartGameProbe foi removida; nenhum monitor automatico foi deixado no projeto.
+
+Validacao: compilacao PASS com os dois avisos preexistentes; teste da cena real 1/1 PASS; hashes dos quatro arquivos locais de cena/prefabs continuam iguais ao inicio da investigacao. Mudancas locais de fontes, presets e backups do usuario preservadas e fora do commit desta etapa. Nao houve push/merge nem alteracao de arquivos runtime de gameplay neste checkpoint.
+
+Retomada: CP1-CP3 de IA e protecao de feedback CP4 continuam existentes. Se o inicio voltar a falhar, executar Check Match Start na tela inicial e capturar o primeiro erro/estado real antes de modificar sistemas. Pendente: confirmacao humana do primeiro spawn e jogabilidade completa apos o painel fechar; o primeiro spawn foi comprovado automaticamente na copia real.
