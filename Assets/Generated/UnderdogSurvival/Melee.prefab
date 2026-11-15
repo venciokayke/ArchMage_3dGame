@@ -91,6 +91,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 227634142026185302}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0f0676959139a6844bb7cd2b321c1acb,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5487274877621102934}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0f0676959139a6844bb7cd2b321c1acb,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1165774782660203800}
   m_SourcePrefab: {fileID: 100100000, guid: 0f0676959139a6844bb7cd2b321c1acb, type: 3}
 --- !u!1 &1202896760472346019 stripped
 GameObject:
@@ -136,8 +144,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ea1b2b7916ecdcc4e8afac5346b928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vidaMaxima: 100
+  vidaMaxima: 175
   invulnerabilidade: 0
+  reducaoDano: 0
   aoReceberDano:
     m_PersistentCalls:
       m_Calls: []
@@ -171,10 +180,25 @@ MonoBehaviour:
   usarNavMesh: 1
   usarAnimationEvent: 1
   ataqueDistancia: 0
-  distanciaMinima: 4
+  distanciaMinima: 6
   projetil: {fileID: 4184996453698317290, guid: 8052676f0be29da409a8a07f12a09398,
     type: 3}
   velocidadeProjetil: 10
+  moverAoAtacar: 1
+  camadaAtaque: 0
+  pontoImpactoEspecial: 0.37333333
+  comportamento: 1
+  intervaloDecisao: 0.35
+  intervaloReposicionamento: 2.4
+  espacamento: 0.9
+  raioSeparacao: 1.2
+  forcaSeparacao: 0.7
+  distanciaIdeal: 7.5
+  distanciaMaxima: 9
+  margemDistancia: 0.8
+  raioFlanco: 4
+  anguloFlanco: 65
+  velocidadeReferenciaAnimacao: 2.5
 --- !u!95 &3747305418169710455
 Animator:
   serializedVersion: 5
@@ -185,7 +209,7 @@ Animator:
   m_GameObject: {fileID: 1202896760472346019}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4b22720d2ef193e48828322cd14014da, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6df328baaba932a4faeb686456af49b4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -234,3 +258,61 @@ MonoBehaviour:
     type: 3}
   efeitoMorte: {fileID: 2134376119977050754, guid: d22fd915606734d40a91350b04b4bbfc,
     type: 3}
+--- !u!114 &5487274877621102934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202896760472346019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f6b9c43363d02f489776a89439d4e45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pesado:
+    ondaMinima: 3
+    cooldown: 6
+    preparo: 0.9
+    recuperacao: 0.5
+    dano: 25
+    alcance: 2.8
+    empurrao: 7
+    duracaoEmpurrao: 0.2
+    angulo: 100
+  investida:
+    ondaMinima: 4
+    aviso: 0.65
+    duracao: 0.25
+    velocidade: 13
+    dano: 15
+    cooldown: 5
+    recuperacao: 0.4
+    distanciaMinima: 3
+    distanciaMaxima: 8
+    largura: 1
+    intervaloEntreRogues: 0.35
+    variacaoEntreRogues: 0.15
+  rajada:
+    ondaMinima: 5
+    cooldown: 7
+    preparo: 0.65
+    recuperacao: 0.25
+    dano: 12
+    abertura: 12
+  materialAviso: {fileID: 2100000, guid: 534af0bd8185d8d46946c080e951cdef, type: 2}
+  projetilRajada: {fileID: 0}
+  habilitado: 1
+  atrasoInicial: {x: 1, y: 2}
+--- !u!114 &1165774782660203800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202896760472346019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 371c9f3a4b18dc14993c2f14ab5bfa13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

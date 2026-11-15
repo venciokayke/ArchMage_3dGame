@@ -8218,7 +8218,7 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 64
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 0
@@ -11982,6 +11982,7 @@ GameObject:
   m_Component:
   - component: {fileID: 886440847}
   - component: {fileID: 886440846}
+  - component: {fileID: 886440848}
   m_Layer: 0
   m_Name: SurvivalGame
   m_TagString: Untagged
@@ -12022,6 +12023,7 @@ MonoBehaviour:
   distante: {fileID: 6566728428853428733, guid: 8d315e69bc3249e4dac7218a4d20d589,
     type: 3}
   jogador: {fileID: 2001199099}
+  melhorias: {fileID: 886440848}
   spawnPoints:
   - {fileID: 1814916049}
   - {fileID: 672427293}
@@ -12045,6 +12047,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &886440848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886440845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00d7719f5bbe21149b897cc838fca333, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  catalogo:
+  - tipo: 0
+    nome: Poder Arcano
+    descricao: +20% de dano das magias
+    valor: 0.2
+    valorSecundario: 0
+    maxAcumulos: 4
+  - tipo: 1
+    nome: Vitalidade
+    descricao: "+25 de vida m\xE1xima e recupera 25 HP"
+    valor: 25
+    valorSecundario: 0
+    maxAcumulos: 4
+  - tipo: 2
+    nome: Agilidade
+    descricao: +10% de velocidade de movimento
+    valor: 0.1
+    valorSecundario: 0
+    maxAcumulos: 4
+  - tipo: 3
+    nome: "Conjura\xE7\xE3o R\xE1pida"
+    descricao: -10% de cooldown das habilidades
+    valor: 0.1
+    valorSecundario: 0
+    maxAcumulos: 4
+  - tipo: 4
+    nome: "Explos\xE3o Aprimorada"
+    descricao: "+20% de dano da explos\xE3o e +15% de empurr\xE3o"
+    valor: 0.2
+    valorSecundario: 0.15
+    maxAcumulos: 4
+  - tipo: 5
+    nome: "Resist\xEAncia"
+    descricao: -10% do dano recebido
+    valor: 0.1
+    valorSecundario: 0
+    maxAcumulos: 4
+  bonusDanoMaximo: 1.5
+  bonusExplosaoMaximo: 1.2
+  bonusEmpurraoMaximo: 0.6
+  bonusVelocidadeMaximo: 0.5
+  reducaoCooldownMaxima: 0.5
+  cooldownMinimo: 0.15
+  resistenciaMaxima: 0.6
+  acumulos: 000000000000000000000000000000000000000000000000
 --- !u!1 &896972715
 GameObject:
   m_ObjectHideFlags: 0
@@ -26006,14 +26065,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95c2b49e39a30ef41a51036bb84823f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidadeDash: 12
-  duracaoDash: 0.2
-  cooldownDash: 1
-  efeitoDash: {fileID: 2556080252842014355, guid: 7d66e52dd03aadc4f86a213b15aae397,
-    type: 3}
   velocidade: 5
   gravidade: -9.81
   velocidadeRotacao: 10
+  aceleracao: 40
+  desaceleracao: 55
+  teclaCorrida: 306
+  multiplicadorCorrida: 1.4
+  staminaMaxima: 100
+  consumoStamina: 18
+  regeneracaoStamina: 25
+  atrasoRegeneracao: 0.75
+  recuperacaoMinima: 20
+  velocidadeDash: 12
+  duracaoDash: 0.2
+  cooldownDash: 1
+  desaceleracaoFimDash: 120
+  efeitoDash: {fileID: 2556080252842014355, guid: 7d66e52dd03aadc4f86a213b15aae397,
+    type: 3}
 --- !u!143 &2001199096
 CharacterController:
   m_ObjectHideFlags: 0
@@ -26087,7 +26156,7 @@ MonoBehaviour:
   camadaAtaque: 1
   estadoPrimario: Upper Body.Ranged_Magic_Raise
   explosao:
-    dano: 35
+    dano: 50
     cooldown: 4
     velocidade: 18
     raio: 4.5
@@ -26099,6 +26168,8 @@ MonoBehaviour:
     efeito: {fileID: 7367307474693367580, guid: 2e685fad78bb0f543a025457fad632cf,
       type: 3}
     estado: Upper Body.Area
+    empurrao: 12
+    duracaoEmpurrao: 0.3
   rajada:
     dano: 15
     cooldown: 6
@@ -26112,6 +26183,9 @@ MonoBehaviour:
       type: 3}
     efeito: {fileID: 0}
     estado: Upper Body.Burst
+    empurrao: 12
+    duracaoEmpurrao: 0.3
+  versaoExplosao: 0
 --- !u!114 &2001199099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26156,6 +26230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vidaMaxima: 100
   invulnerabilidade: 0
+  reducaoDano: 0
   aoReceberDano:
     m_PersistentCalls:
       m_Calls: []
