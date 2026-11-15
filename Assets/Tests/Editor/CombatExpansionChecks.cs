@@ -139,8 +139,10 @@ public static class CombatExpansionChecks
         enemy.Empurrar(Vector3.right,20,0.3f); end=Time.time+0.3f; while(Time.time<end) yield return null;
         Assert(enemy.transform.position.x<Origin.x-0.7f,"Empurrao nao pode atravessar parede.");
         Assert(enemy.GetComponent<NavMeshAgent>().isOnNavMesh,"Empurrao precisa manter inimigo na malha.");
+        before=enemy.transform.position;
         end=Time.time+0.6f; while(Time.time<end) yield return null;
         Assert(!enemy.GetComponent<CombatDisplacement>().Ativo && enemy.GetComponent<NavMeshAgent>().enabled,"IA deve retomar apos empurrao.");
+        Assert(Vector3.Distance(before,enemy.transform.position)>0.2f,"IA precisa voltar a contornar o obstaculo apos empurrao.");
         Debug.Log("PASS: empurrao respeita parede/NavMesh e termina.");
 
         Fixture(EnemyAI.Comportamento.Guerreiro,new Vector3(2,0,0),Vector3.zero);

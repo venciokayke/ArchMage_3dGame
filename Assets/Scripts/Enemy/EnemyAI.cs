@@ -182,7 +182,13 @@ public class EnemyAI : MonoBehaviour
         }
         else if (forced)
         {
-            if (agent != null && agent.isOnNavMesh) agent.isStopped = true;
+            if (agent != null && agent.isOnNavMesh)
+            {
+                agent.isStopped = true;
+                if (agent.hasPath) agent.ResetPath();
+            }
+            temDestino = false;
+            proximaDecisao = Time.time;
         }
         else if (usarNavMesh)
         {
@@ -226,6 +232,9 @@ public class EnemyAI : MonoBehaviour
         float speed = Time.deltaTime > 0 ? Vector3.ProjectOnPlane(transform.position - antes, Vector3.up).magnitude / Time.deltaTime : 0;
         SetFloat("Speed", Mathf.Clamp01(speed / Mathf.Max(0.1f, velocidade)));
         SetFloat("LocomotionRate", speed > 0.1f ? Mathf.Clamp(speed / Mathf.Max(0.1f, velocidadeReferenciaAnimacao), 0.2f, 3) : 1);
+        Vector3 local = Time.deltaTime > 0 ? transform.InverseTransformDirection(Vector3.ProjectOnPlane(transform.position - antes, Vector3.up) / (Time.deltaTime * Mathf.Max(0.1f, velocidade))) : Vector3.zero;
+        local = Vector3.ClampMagnitude(local, 1);
+        SetFloat("MoveX", local.x); SetFloat("MoveZ", local.z);
         if (camadaAtaque > 0 && animator != null)
             animator.SetLayerWeight(camadaAtaque, Mathf.MoveTowards(animator.GetLayerWeight(camadaAtaque), AtaqueBasicoOcupado || special.Preparando ? 1 : 0, Time.deltaTime * 12));
     }

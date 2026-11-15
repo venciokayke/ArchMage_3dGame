@@ -53,6 +53,8 @@ public class PlayerCombat : MonoBehaviour
     private int ataqueAtual;
     private GameObject preparoAtual;
     [SerializeField] private int versaoExplosao;
+    private int frameHabilitado;
+    void OnEnable() { frameHabilitado = Time.frameCount; }
 
     void Awake()
     {
@@ -79,6 +81,7 @@ public class PlayerCombat : MonoBehaviour
     void Update()
     {
         AtualizarMira();
+        if (Time.frameCount == frameHabilitado) return;
         if (Input.GetMouseButtonDown(0)) Atacar();
         if (Input.GetMouseButtonDown(1)) SolicitarAtaque(1);
         if (Input.GetKeyDown(KeyCode.Q)) SolicitarAtaque(2);

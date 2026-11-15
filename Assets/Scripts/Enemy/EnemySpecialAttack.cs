@@ -18,6 +18,7 @@ public class EnemySpecialAttack : MonoBehaviour
         [Min(0)] public float aviso = 0.65f, duracao = 0.25f, velocidade = 13, dano = 15, cooldown = 5, recuperacao = 0.4f;
         [Min(0)] public float distanciaMinima = 3, distanciaMaxima = 8, largura = 1;
         [Min(0)] public float intervaloEntreRogues = 0.35f;
+        [Min(0)] public float variacaoEntreRogues = 0.15f;
     }
     [System.Serializable]
     public class Rajada
@@ -32,6 +33,7 @@ public class EnemySpecialAttack : MonoBehaviour
     public Material materialAviso;
     public Projectile projetilRajada;
     public bool habilitado = true;
+    public Vector2 atrasoInicial = new Vector2(1, 2);
     enum Fase { Livre, Preparo, Investida, Recuperacao }
     Fase fase;
     EnemyAI owner;
@@ -49,7 +51,7 @@ public class EnemySpecialAttack : MonoBehaviour
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     static void ResetCoordination() { nextRogue = 0; }
-    public void Inicializar(EnemyAI ai) { owner = ai; nextUse = Time.time + Random.Range(1, 2); }
+    public void Inicializar(EnemyAI ai) { owner = ai; nextUse = Time.time + Random.Range(Mathf.Max(0,atrasoInicial.x),Mathf.Max(atrasoInicial.x,atrasoInicial.y)); }
 
     public void Atualizar(float dt)
     {
@@ -67,7 +69,7 @@ public class EnemySpecialAttack : MonoBehaviour
             int wave = mage ? rajada.ondaMinima : rogue ? investida.ondaMinima : pesado.ondaMinima;
             bool range = mage ? distance <= owner.alcanceAtaque : rogue ? distance >= investida.distanciaMinima && distance <= investida.distanciaMaxima : distance <= pesado.alcance;
             if (owner.OndaAtual < wave || Time.time < nextUse || owner.AtaqueBasicoOcupado || !range || !owner.TemLinhaDeVisao() || (rogue && Time.time < nextRogue)) return;
-            if (rogue) nextRogue = Time.time + investida.intervaloEntreRogues + Random.Range(0, 0.15f);
+            if (rogue) nextRogue = Time.time + investida.intervaloEntreRogues + Random.Range(0, Mathf.Max(0,investida.variacaoEntreRogues));
             direction = Vector3.ProjectOnPlane(owner.AlvoAtual.position - transform.position, Vector3.up).normalized;
             fase = Fase.Preparo;
             until = Time.time + (mage ? rajada.preparo : rogue ? investida.aviso : pesado.preparo);
@@ -164,8 +166,19 @@ public class EnemySpecialAttack : MonoBehaviour
         {
             warning = new GameObject("Charge Warning"); warning.transform.SetParent(transform, false);
             warningMesh = new Mesh { name = "Charge trajectory" };
-            warningMesh.vertices = new[] { new Vector3(-0.5f,0,0), new Vector3(0.5f,0,0), new Vector3(-0.5f,0,0.8f), new Vector3(0.5f,0,0.8f), new Vector3(0,0,1) };
-            warningMesh.triangles = new[] { 0,2,1, 1,2,3, 2,4,3 }; warningMesh.RecalculateNormals();
+            if(owner.Tipo==EnemyAI.Comportamento.Guerreiro)
+            {
+                var vertices=new Vector3[14];var triangles=new int[36];
+                for(int i=0;i<=12;i++)vertices[i+1]=Quaternion.Euler(0,Mathf.Lerp(-pesado.angulo*0.5f,pesado.angulo*0.5f,i/12f),0)*Vector3.forward;
+                for(int i=0;i<12;i++){triangles[i*3]=0;triangles[i*3+1]=i+1;triangles[i*3+2]=i+2;}
+                warningMesh.vertices=vertices;warningMesh.triangles=triangles;
+            }
+            else
+            {
+                warningMesh.vertices = new[] { new Vector3(-0.5f,0,0), new Vector3(0.5f,0,0), new Vector3(-0.5f,0,0.8f), new Vector3(0.5f,0,0.8f), new Vector3(0,0,1) };
+                warningMesh.triangles = new[] { 0,2,1, 1,2,3, 2,4,3 };
+            }
+            warningMesh.RecalculateNormals();
             warning.AddComponent<MeshFilter>().sharedMesh = warningMesh;
             var renderer = warning.AddComponent<MeshRenderer>();
             renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
@@ -184,7 +197,7 @@ public class EnemySpecialAttack : MonoBehaviour
             }
             renderer.sharedMaterial = materialAviso != null ? materialAviso : fallbackMaterial;
         }
-        warning.transform.localScale = new Vector3(width, 1, length);
+        warning.transform.localScale = new Vector3(owner.Tipo==EnemyAI.Comportamento.Guerreiro?length:width, 1, length);
         warning.SetActive(true); AtualizarAviso();
     }
     void AtualizarAviso()

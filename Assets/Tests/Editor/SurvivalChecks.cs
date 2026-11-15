@@ -128,7 +128,7 @@ public static class SurvivalChecks
         areaTarget.gameObject.AddComponent<SphereCollider>().center = Vector3.up;
         Physics.SyncTransforms();
         Call(caster, "Explodir");
-        Assert(areaTarget.VidaAtual == 65, "Area deve atingir cada Vida uma vez, mesmo com dois colliders.");
+        Assert(areaTarget.VidaAtual == 50, "Area de 50 deve atingir cada Vida uma vez, mesmo com dois colliders.");
         var blocked = Target(caster.transform.position + Vector3.forward * 3);
         var wall = Item("Test wall", caster.transform.position + new Vector3(0, 1, 1.5f));
         wall.AddComponent<BoxCollider>().size = new Vector3(2, 2, 0.3f);
@@ -166,7 +166,11 @@ public static class SurvivalChecks
         while (Time.frameCount <= frame + 1) yield return null;
         waves.Iniciar();
         double end = EditorApplication.timeSinceStartup + 10;
-        while (waves.Situacao == WaveManager.Estado.Jogando && EditorApplication.timeSinceStartup < end) yield return null;
+        while ((waves.Situacao == WaveManager.Estado.Jogando || waves.Situacao == WaveManager.Estado.EscolhendoBuff) && EditorApplication.timeSinceStartup < end)
+        {
+            if (waves.Situacao == WaveManager.Estado.EscolhendoBuff) waves.EscolherBuff(0);
+            yield return null;
+        }
         Assert(waves.Situacao == WaveManager.Estado.Vitoria && waves.OndaAtual == 5 && waves.Restantes == 0, "Cinco ondas concluidas devem produzir vitoria.");
         var loss = Item("Loss game", origin);
         loss.SetActive(false);
@@ -176,7 +180,7 @@ public static class SurvivalChecks
         loser.spawnPoints = new[] { root.transform };
         loss.SetActive(true);
         loser.Iniciar();
-        player.Vida.ReceberDano(100);
+        player.Vida.ReceberDano(10000);
         Assert(loser.Situacao == WaveManager.Estado.Derrota, "Morte do jogador deve encerrar a partida em derrota.");
     }
     static void Assert(bool condition, string message) { if (!condition) throw new InvalidOperationException(message); }

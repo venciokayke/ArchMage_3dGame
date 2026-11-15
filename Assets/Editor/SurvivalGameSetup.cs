@@ -309,7 +309,7 @@ public static class SurvivalGameSetup
         player.preparoPrimario = preparation;
         player.camadaAtaque = 1;
         player.estadoPrimario = "Upper Body.Ranged_Magic_Raise";
-        player.explosao = new MagiaAdicional { dano = 35, cooldown = 4, raio = 4.5f, preparo = preparation, efeito = area, estado = "Upper Body.Area" };
+        player.explosao = new MagiaAdicional { dano = 50, cooldown = 4, raio = 4.5f, preparo = preparation, efeito = area, estado = "Upper Body.Area" };
         player.rajada = new MagiaAdicional { dano = 15, cooldown = 6, velocidade = 22, quantidade = 3, intervalo = 0.1f, projetil = burst, preparo = preparation, estado = "Upper Body.Burst" };
         var feedback = player.GetComponent<CombatFeedback>();
         if (feedback == null) feedback = player.gameObject.AddComponent<CombatFeedback>();

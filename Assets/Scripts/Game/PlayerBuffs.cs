@@ -106,12 +106,12 @@ public class PlayerBuffs : MonoBehaviour
         {
             combat.danoPrimario=basePrimary*power; combat.rajada.dano=baseBurst*power; combat.explosao.dano=baseArea*power*area;
             combat.explosao.empurrao=basePush*(1+Mathf.Min(bonusEmpurraoMaximo,acumulos[(int)TipoBuff.ExplosaoAprimorada]*Valor(definitions[(int)TipoBuff.ExplosaoAprimorada].valorSecundario)));
-            combat.cooldown=Mathf.Max(cooldownMinimo,baseCooldown*cooldown);
-            combat.explosao.cooldown=Mathf.Max(cooldownMinimo,baseAreaCooldown*cooldown);
-            combat.rajada.cooldown=Mathf.Max(cooldownMinimo,baseBurstCooldown*cooldown);
+            combat.cooldown=Mathf.Min(baseCooldown,Mathf.Max(cooldownMinimo,baseCooldown*cooldown));
+            combat.explosao.cooldown=Mathf.Min(baseAreaCooldown,Mathf.Max(cooldownMinimo,baseAreaCooldown*cooldown));
+            combat.rajada.cooldown=Mathf.Min(baseBurstCooldown,Mathf.Max(cooldownMinimo,baseBurstCooldown*cooldown));
         }
         if(movement!=null) movement.velocidade=baseSpeed*(1+Mathf.Min(bonusVelocidadeMaximo,Bonus(TipoBuff.Agilidade)));
-        player.Vida.reducaoDano=Mathf.Clamp(baseResistance+Bonus(TipoBuff.Resistencia),0,resistenciaMaxima);
+        player.Vida.reducaoDano=Mathf.Max(baseResistance,Mathf.Clamp(baseResistance+Bonus(TipoBuff.Resistencia),0,resistenciaMaxima));
     }
     static float Valor(float value)=>float.IsNaN(value)||float.IsInfinity(value)?0:Mathf.Max(0,value);
     public void Cancelar() { Pendente=false; if(ui!=null) ui.Ocultar(); }

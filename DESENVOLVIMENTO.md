@@ -2,7 +2,7 @@
 
 ## Como retomar
 
-Leia este arquivo antes de implementar. Consulte git status e git log; preserve trabalho local. Nao refaca checkpoints concluidos. Nao execute Prepare Survival Game para aplicar apenas IA: ele recria a partida. Camera, arena, HUD, habilidades, vida/dano e WaveManager estao fora do escopo desta etapa.
+Leia este arquivo antes de implementar, comecando pelo ultimo checkpoint (CP9). Consulte git status e git log; preserve trabalho local e nao refaca checkpoints concluidos. Nao execute Prepare Survival Game para atualizar sistemas isolados: ele recria a partida. Para a expansao atual use Prepare Combat Expansion conforme Docs/CombatExpansion.md; camera, arena, composicao das cinco ondas e HUD existente devem permanecer preservados.
 
 ## CP0 — baseline e analise (2026-11-15)
 
@@ -140,3 +140,23 @@ Validacao: compilacao de runtime/Editor PASS (dois avisos anteriores). Runner Un
 Arquivos: CombatDisplacement.cs, EnemySpecialAttack.cs, EnemyAI.cs, PlayerMovement.cs (apenas impulso adicional), PlayerCombat.cs, Vida.cs, WaveManager.cs, PlayerBuffs.cs, BuffSelectionUI.cs, CombatExpansionChecks.cs e BuffChecks.cs (+ novos metas), Docs/Validation/CombatExpansion-Runtime.xml e este checkpoint.
 
 Falta CP9: validar ferramenta segura CombatExpansionSetup, Controllers/mask/animacoes reais e assets de aviso/rajada na copia, teste de reinicio/restauracao de atributos, regressao anterior, instrucoes e verificacao de integridade. Nenhum asset de cena/prefab/Animator do usuario foi configurado automaticamente. Play Mode automatizado nao significa aprovacao visual ou teste humano de balanceamento.
+
+## CP9 concluido — configuracao segura, animacoes reais e regressao (2026-11-15)
+
+CP8 registrado no commit local 26b039f. Retomada consultou checkpoint, status, relatórios e hashes; nao refez runtime concluido nem incorporou arquivos locais do usuario. Novo guia completo: Docs/CombatExpansion.md.
+
+Implementado e integrado:
+- CombatExpansionSetup.cs (+ meta): Tools > Underdog > Prepare Combat Expansion identifica cena/3 prefabs reais no WaveManager, valida Unity2022.3/Edit Mode/arquivos salvos, apresenta confirmacao com os caminhos, cria backups antes de escrever e configura via APIs do Editor. Copia Controllers, preserva GUIDs/fileIDs/componentes existentes, cria material URP vermelho transparente e prefab roxo da rajada; salva a cena atual com PlayerBuffs e explosao50. Rollback restaura cena/prefabs em falha; originais KayKit e Controllers anteriores permanecem intactos. Cada execucao cria pasta propria e reutiliza componentes/camadas sem duplicacao.
+- Mage: mascara baseada no spine do rig real, Attack/Special na Upper Body, pernas em Blend Tree com Idle_A/Running_A e Walking_Backwards/Running_Strafe_Left/Right. Rogue: Dodge_Forward ajustado a duracao da investida. Warrior/Rogue reutilizam Melee_1H_Attack_Chop e Mage Ranged_Magic_Shoot para preparo com SpecialRate; copias dos especiais removem eventos basicos, preservando evento unico nos ataques normais. Clips descobertos via AssetDatabase.
+- Ajustes confirmados na integracao: apos impulso/investida limpa caminho antigo e agenda nova decisao (teste de retomada real incluido); aviso pesado usa cone coerente com o alcance; atraso/variacao dos especiais configuraveis; recalculo de buffs nao piora cooldown/resistencia personalizados anteriores; clique da escolha nao dispara magia no mesmo frame em que PlayerCombat e reativado.
+- CombatExpansionSetupChecks.cs (+ meta) oferece verificacao repetivel dos assets preparados. SurvivalChecks atualizado para dano50, quatro escolhas obrigatorias e dano fatal de teste suficiente apos buffs; SurvivalGameSetup atualiza somente dano inicial50 para futuras geracoes.
+
+Validacoes concluidas no Native Test Runner Unity2022.3.62f3 em Temp/StartSceneVerification (copia isolada da cena e assets reais, sem Pipeline):
+- PlayMode 8/8 PASS: CombatCoreTests (especiais/empurrao/buffs/cinco ondas), CombatSceneTests (Mage real movendo pernas e disparando por Animation Event; Rogue real com aviso/Dodge; reinicio real sem buffs/atributos residuais) e regressao existente de grupos25/movimentacao/sobrevivencia. Relatorio Docs/Validation/CombatExpansion-PlayMode.xml.
+- EditMode 3/3 PASS: CombatAssetTests (backups, GUID/fileID, Controllers originais e preservacao de camera/HUD/ondas/dash; mascara/animacoes/eventos/materiais) e PlayerCombat/CombatFeedback anteriores. Relatorio Docs/Validation/CombatExpansion-EditMode.xml.
+- Falhas intermediarias de regressao eram expectativas/fixtures antigas: Vitalidade com aceitaDano=false, comparacao float exata, dano100 insuficiente apos buffs e cena de teste carregada sem buildIndex. Corrigidos somente os testes correspondentes; reinicio real via WaveManager.Reiniciar foi comprovado com Build Settings da copia, sem mudar os do projeto principal.
+- Hashes SHA256 dos cinco assets locais protegidos iguais ao inicio (cena, Melee/Fast/Ranged e Player.controller). Sem alteracao em SampleScene, KayKit, pacotes, ProjectSettings, camera, ArenaNavigation, SurvivalHUD ou Projectile. Compilacao runtime/Editor passou; somente avisos preexistentes NavigationStatic e ItemEffect. git diff --check aprovado.
+
+Estado de entrega: runtime, configurador seguro, suites e documentacao concluidos. Nao refazer CP8/CP9. Os assets da partida principal NAO foram configurados automaticamente; executar fora de Play: salvar trabalho pendente > Prepare Combat Expansion > conferir/confirmar caminhos > Check Combat Expansion Setup (Edit Mode) > nova sessao Play. O configurador salva a cena atual apos backup e confirmacao; nao regera a arena nem requer rebake do NavMesh. Todos os valores de especiais, empurrao e catalogo/limites de buffs estao no Inspector. Detalhes e arquivos no guia.
+
+Pendente exclusivamente na Unity interativa: aplicar na cena principal; avaliar animacoes/visibilidade/transparencia/efeitos e UI em Game, teclado/mouse fisicos, colisao nos props reais, balanceamento das quatro escolhas/especiais, cinco ondas jogadas por uma pessoa, derrota/reinicio e Profiler com 15-25. Testes automatizados usam fixtures e copia real, nao comprovam sensacao visual ou desempenho de hardware. Alteracoes/exclusoes locais do usuario continuam fora dos commits. Nenhum push/merge.
