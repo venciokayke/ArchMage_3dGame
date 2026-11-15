@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class WaveManager : MonoBehaviour
 {
-    public enum Estado { Inicio, Jogando, Vitoria, Derrota }
+    public enum Estado { Inicio, Jogando, Vitoria, Derrota, EscolhendoBuff }
     [System.Serializable]
     public class Onda
     {
@@ -24,6 +24,7 @@ public class WaveManager : MonoBehaviour
     public EnemyAI rapido;
     public EnemyAI distante;
     public PlayerHp jogador;
+    public PlayerBuffs melhorias;
     public Transform[] spawnPoints;
     [Min(0)] public float intervaloOndas = 4;
     [Min(0.1f)] public float intervaloSpawn = 0.7f;
@@ -42,6 +43,7 @@ public class WaveManager : MonoBehaviour
         if (jogador == null) { Debug.LogError("WaveManager sem jogador.", this); enabled = false; return; }
         movement = jogador.GetComponent<PlayerMovement>();
         combat = jogador.GetComponent<PlayerCombat>();
+        if (melhorias == null) melhorias = GetComponent<PlayerBuffs>() ?? gameObject.AddComponent<PlayerBuffs>();
         Comandos(false);
         jogador.Vida.aceitaDano = false;
         jogador.Vida.aoMorrer.AddListener(Perder);
@@ -67,6 +69,7 @@ public class WaveManager : MonoBehaviour
             NavMesh.CalculateTriangulation().vertices.Length == 0)
         { Debug.LogError("Partida nao preparada: prefabs, ondas, spawns ou NavMesh ausentes.", this); return; }
         Situacao = Estado.Jogando;
+        melhorias.Inicializar(jogador, this);
         jogador.Vida.aceitaDano = true;
         Comandos(true);
         StartCoroutine(Partida());
@@ -95,6 +98,14 @@ public class WaveManager : MonoBehaviour
             }
             Surgindo = false;
             while (vivos.Count > 0) yield return null;
+            if (i + 1 < ondas.Length)
+            {
+                Situacao = Estado.EscolhendoBuff;
+                Comandos(false);
+                if (!melhorias.Oferecer(i + 1)) { Debug.LogError("Nao foi possivel oferecer melhorias.", this); yield break; }
+                while (Situacao == Estado.EscolhendoBuff) yield return null;
+                if (Situacao != Estado.Jogando) yield break;
+            }
         }
         Encerrar(true);
     }
@@ -114,6 +125,7 @@ public class WaveManager : MonoBehaviour
                 Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) continue;
             if (!NavMesh.CalculatePath(hit.position, target.position, NavMesh.AllAreas, path) || path.status != NavMeshPathStatus.PathComplete) continue;
             var instance = Instantiate(prefab, position, Quaternion.identity);
+            instance.ConfigurarOnda(OndaAtual);
             vivos.Add(instance);
             return true;
         }
@@ -121,13 +133,20 @@ public class WaveManager : MonoBehaviour
     }
 
     void Perder() { Encerrar(false); }
+    public void EscolherBuff(int indice)
+    {
+        if (Situacao != Estado.EscolhendoBuff || melhorias == null || jogador.Vida.EstaMorto || !melhorias.Escolher(indice)) return;
+        Situacao = Estado.Jogando;
+        Comandos(true);
+    }
     void Encerrar(bool venceu)
     {
-        if (Situacao != Estado.Jogando) return;
+        if (Situacao != Estado.Jogando && Situacao != Estado.EscolhendoBuff) return;
         Situacao = venceu ? Estado.Vitoria : Estado.Derrota;
         Comandos(false);
         jogador.Vida.aceitaDano = false;
         Surgindo = false;
+        if (melhorias != null) melhorias.Cancelar();
         foreach (var ai in vivos) if (ai != null) ai.Desarmar();
         StopAllCoroutines();
     }

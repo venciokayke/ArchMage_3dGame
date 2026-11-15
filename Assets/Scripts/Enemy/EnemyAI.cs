@@ -37,6 +37,17 @@ public class EnemyAI : MonoBehaviour
     public float distanciaMinima = 4f;
     public Projectile projetil;
     public float velocidadeProjetil = 10f;
+    public bool moverAoAtacar = true;
+    public int camadaAtaque;
+    public float pontoImpactoEspecial = 0.4f;
+    public int OndaAtual { get; private set; } = 1;
+    public Comportamento Tipo => Estilo;
+    public Transform AlvoAtual => alvo;
+    public bool Inativo => suspenso || (vida != null && vida.EstaMorto) || !isActiveAndEnabled;
+    public bool AtaqueBasicoOcupado => momentoDoGolpe >= 0 || AnimacaoDeAtaque();
+    CombatDisplacement displacement;
+    EnemySpecialAttack special;
+    bool PodeMoverAtacando => ataqueDistancia && moverAoAtacar;
 
 
     public enum Comportamento { Automatico, Guerreiro, Flanqueador, Distante }
@@ -82,7 +93,12 @@ public class EnemyAI : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     static void LimparGrupo() { grupo.Clear(); sequencia = 0; }
     void OnEnable() { if (inicializado && usarNavMesh && !suspenso && !vida.EstaMorto && !grupo.Contains(this)) grupo.Add(this); }
-    void OnDisable() { grupo.Remove(this); temDestino = false; momentoDoGolpe = -1; }
+    void OnDisable()
+    {
+        grupo.Remove(this); temDestino = false; momentoDoGolpe = -1;
+        if (special != null) special.Cancelar();
+        if (displacement != null) displacement.Limpar();
+    }
     private CharacterController controller;
     private Animator animator;
     private Vida vida;
@@ -110,6 +126,16 @@ public class EnemyAI : MonoBehaviour
         if (animator != null && animator.runtimeAnimatorController != null)
             foreach (var parameter in animator.parameters) parametros[parameter.name] = parameter.type;
         agent = GetComponent<NavMeshAgent>();
+        displacement = GetComponent<CombatDisplacement>();
+        if (displacement == null) displacement = gameObject.AddComponent<CombatDisplacement>();
+        special = GetComponent<EnemySpecialAttack>();
+        if (special == null) special = gameObject.AddComponent<EnemySpecialAttack>();
+        special.Inicializar(this);
+        if (ataqueDistancia && animator != null)
+        {
+            int upper = animator.GetLayerIndex("Upper Body");
+            if (upper > 0) camadaAtaque = upper;
+        }
         if (usarNavMesh) caminho = new NavMeshPath();
         if (usarNavMesh && (agent == null || !agent.isOnNavMesh))
         {
@@ -142,10 +168,20 @@ public class EnemyAI : MonoBehaviour
         if (estado == Estado.Morto || suspenso) return;
         Vector3 direcao = Vector3.zero;
         bool alvoValido = alvo != null && alvo.gameObject.activeInHierarchy && (vidaAlvo == null || !vidaAlvo.EstaMorto);
+        bool pushed = displacement != null && displacement.Ativo;
+        if (pushed) { momentoDoGolpe = -1; special.Cancelar(); }
+        else if (alvoValido) special.Atualizar(Time.deltaTime);
+        else special.Cancelar();
+        bool forced = pushed || special.BloqueiaMovimento;
+        Vector3 forcedStep = pushed ? displacement.ConsumirPasso(Time.deltaTime) : special.Passo;
         if (!alvoValido)
         {
             estado = Estado.Parado;
             temDestino = false;
+            if (agent != null && agent.isOnNavMesh) agent.isStopped = true;
+        }
+        else if (forced)
+        {
             if (agent != null && agent.isOnNavMesh) agent.isStopped = true;
         }
         else if (usarNavMesh)
@@ -156,7 +192,7 @@ public class EnemyAI : MonoBehaviour
                 proximaDecisao = Time.time + Mathf.Max(0.15f, intervaloDecisao);
             }
             bool golpe = momentoDoGolpe >= 0 || AnimacaoDeAtaque();
-            bool mover = moverNav && !golpe && agent.isOnNavMesh;
+            bool mover = moverNav && (!golpe || PodeMoverAtacando) && agent.isOnNavMesh;
             if (agent.isOnNavMesh)
             {
                 agent.isStopped = !mover;
@@ -171,7 +207,7 @@ public class EnemyAI : MonoBehaviour
             }
             if (estado == Estado.Atacando || golpe || Estilo == Comportamento.Distante) OlharPara(DirecaoParaAlvo());
             else if (direcao.sqrMagnitude > 0.01f) OlharPara(direcao);
-            if (estado == Estado.Atacando) TentarAtacar();
+            if (estado == Estado.Atacando || PodeMoverAtacando) TentarAtacar();
         }
         else
         {
@@ -181,12 +217,17 @@ public class EnemyAI : MonoBehaviour
         }
         AplicarGolpePendente();
         Vector3 antes = transform.position;
-        controller.Move(direcao * velocidade * Time.deltaTime);
+        Vector3 step = forced ? forcedStep : direcao * velocidade * Time.deltaTime;
+        if (usarNavMesh) step = CombatDisplacement.LimitarAoNavMesh(step, agent);
+        controller.Move(step);
         AplicarGravidade();
         if (usarNavMesh && agent.isOnNavMesh) agent.nextPosition = transform.position;
+        special.AposMover(antes, transform.position);
         float speed = Time.deltaTime > 0 ? Vector3.ProjectOnPlane(transform.position - antes, Vector3.up).magnitude / Time.deltaTime : 0;
         SetFloat("Speed", Mathf.Clamp01(speed / Mathf.Max(0.1f, velocidade)));
         SetFloat("LocomotionRate", speed > 0.1f ? Mathf.Clamp(speed / Mathf.Max(0.1f, velocidadeReferenciaAnimacao), 0.2f, 3) : 1);
+        if (camadaAtaque > 0 && animator != null)
+            animator.SetLayerWeight(camadaAtaque, Mathf.MoveTowards(animator.GetLayerWeight(camadaAtaque), AtaqueBasicoOcupado || special.Preparando ? 1 : 0, Time.deltaTime * 12));
     }
 
     void DecidirNavegacao()
@@ -198,7 +239,7 @@ public class EnemyAI : MonoBehaviour
         if (distancia > raioPerderAlvo || (estado == Estado.Parado && distancia > raioDeteccao))
         { estado = Estado.Parado; moverNav = false; temDestino = false; return; }
         // Mantem o destino reservado durante a animacao, sem reiniciar ou cancelar o golpe.
-        if (momentoDoGolpe >= 0 || AnimacaoDeAtaque()) { moverNav = false; return; }
+        if (!PodeMoverAtacando && (momentoDoGolpe >= 0 || AnimacaoDeAtaque())) { moverNav = false; return; }
         bool livre = LinhaLivre();
         if (Estilo == Comportamento.Distante) { DecidirDistante(distancia, livre); return; }
         if (distancia > raioFlanco + 5) flancoFeito = false;
@@ -380,6 +421,7 @@ public class EnemyAI : MonoBehaviour
 
     private void TentarAtacar()
     {
+        if (special != null && special.Ativo) return;
         if (alvo == null || DistanciaHorizontal(alvo.position) > alcanceAtaque || !LinhaLivre() || Time.time < proximoAtaque || momentoDoGolpe >= 0 || AnimacaoDeAtaque())
         {
             return;
@@ -387,7 +429,8 @@ public class EnemyAI : MonoBehaviour
 
         proximoAtaque = Time.time + intervaloAtaque;
         momentoDoGolpe = Time.time + atrasoDoGolpe;
-        SetTrigger("Attack");
+        if (camadaAtaque > 0 && animator != null) animator.CrossFadeInFixedTime("Upper Body.Attack", 0.05f, camadaAtaque, 0);
+        else SetTrigger("Attack");
     }
 
     private void AplicarGolpePendente()
@@ -445,7 +488,7 @@ public class EnemyAI : MonoBehaviour
 
     private void AoReceberDano(float quantidade)
     {
-        if (!vida.EstaMorto && momentoDoGolpe < 0 && !AnimacaoDeAtaque()) SetTrigger("Hit");
+        if (!vida.EstaMorto && momentoDoGolpe < 0 && !AnimacaoDeAtaque() && (special == null || !special.Ativo)) SetTrigger("Hit");
 
         // Leva dano de longe (magia): passa a perseguir mesmo fora do raio de detecção.
         if (estado == Estado.Parado && alvo != null)
@@ -460,6 +503,9 @@ public class EnemyAI : MonoBehaviour
         temDestino = false;
         estado = Estado.Morto;
         momentoDoGolpe = -1f;
+        if (special != null) special.Cancelar();
+        if (displacement != null) displacement.Limpar();
+        if (animator != null && camadaAtaque > 0) animator.SetLayerWeight(camadaAtaque, 0);
         SetFloat("Speed", 0f);
         // O Hit do golpe fatal ainda está armado e tiraria o esqueleto da animação de morte.
         ResetTrigger("Hit");
@@ -474,11 +520,36 @@ public class EnemyAI : MonoBehaviour
 
     bool AnimacaoDeAtaque()
     {
-        return animator != null && (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") ||
-            (animator.IsInTransition(0) && animator.GetNextAnimatorStateInfo(0).IsName("Attack")));
+        return animator != null && animator.runtimeAnimatorController != null && (animator.GetCurrentAnimatorStateInfo(camadaAtaque).IsName("Attack") ||
+            (animator.IsInTransition(camadaAtaque) && animator.GetNextAnimatorStateInfo(camadaAtaque).IsName("Attack")));
     }
 
     bool LinhaLivre() { return LinhaLivreDe(transform.position); }
+    public bool TemLinhaDeVisao() { return LinhaLivre(); }
+    public void ConfigurarOnda(int onda) { OndaAtual = Mathf.Max(1, onda); }
+    public void Empurrar(Vector3 direction, float speed, float duration)
+    {
+        if (Inativo) return;
+        if (displacement == null) displacement = GetComponent<CombatDisplacement>() ?? gameObject.AddComponent<CombatDisplacement>();
+        momentoDoGolpe = -1;
+        if (special != null) special.Cancelar();
+        displacement.Aplicar(direction, speed, duration);
+    }
+    public void AnimarEspecial(float preparo = 0.65f)
+    {
+        if (animator == null || animator.runtimeAnimatorController == null) return;
+        SetFloat("SpecialRate", Mathf.Max(0.05f, pontoImpactoEspecial / Mathf.Max(0.05f, preparo)));
+        string state = camadaAtaque > 0 ? "Upper Body.Special" : "Base Layer.Special";
+        if (animator.HasState(camadaAtaque, Animator.StringToHash(state))) animator.CrossFadeInFixedTime(state, 0.06f, camadaAtaque, 0);
+        else if (camadaAtaque > 0) animator.CrossFadeInFixedTime("Upper Body.Attack", 0.06f, camadaAtaque, 0);
+        else SetTrigger("Attack");
+    }
+    public void ConcluirAnimacaoEspecial(bool dash = false)
+    {
+        SetFloat("SpecialRate", 1.3f);
+        if (dash && animator != null && animator.runtimeAnimatorController != null && animator.HasState(0, Animator.StringToHash("Base Layer.Dash")))
+            animator.CrossFadeInFixedTime("Base Layer.Dash", 0.035f, 0, 0);
+    }
 
     bool LinhaLivreDe(Vector3 posicao)
     {
@@ -496,6 +567,8 @@ public class EnemyAI : MonoBehaviour
         temDestino = false;
         suspenso = true;
         momentoDoGolpe = -1;
+        if (special != null) special.Cancelar();
+        if (displacement != null) displacement.Limpar();
         if (agent != null && agent.isOnNavMesh) agent.isStopped = true;
         SetFloat("Speed", 0);
         ResetTrigger("Attack");

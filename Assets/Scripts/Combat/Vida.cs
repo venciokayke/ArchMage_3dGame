@@ -5,6 +5,7 @@ public class Vida : MonoBehaviour
 {
     [Min(1f)] public float vidaMaxima = 100f;
     [Min(0f)] public float invulnerabilidade;
+    [Range(0, 0.8f)] public float reducaoDano;
     public UnityEvent<float> aoReceberDano = new UnityEvent<float>();
     public UnityEvent aoMorrer = new UnityEvent();
     public float VidaAtual { get; private set; }
@@ -17,6 +18,7 @@ public class Vida : MonoBehaviour
     public void ReceberDano(float quantidade)
     {
         if (!aceitaDano || EstaMorto || quantidade <= 0 || float.IsNaN(quantidade) || float.IsInfinity(quantidade) || Time.time < vulneravelEm) return;
+        quantidade *= 1 - Mathf.Clamp(reducaoDano, 0, 0.8f);
         VidaAtual = Mathf.Max(0, VidaAtual - quantidade);
         vulneravelEm = Time.time + Mathf.Max(0, invulnerabilidade);
         bool morreu = VidaAtual <= 0;

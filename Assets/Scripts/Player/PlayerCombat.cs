@@ -15,6 +15,8 @@ public class MagiaAdicional
     public GameObject preparo;
     public GameObject efeito;
     public string estado = "Upper Body.Area";
+    [Min(0)] public float empurrao = 12f;
+    [Min(0)] public float duracaoEmpurrao = 0.3f;
 }
 
 [RequireComponent(typeof(Animator))]
@@ -31,7 +33,7 @@ public class PlayerCombat : MonoBehaviour
     [Min(0f)] public float zonaMortaMira = 0.5f;
     public int camadaAtaque;
     public string estadoPrimario = "Base Layer.Ranged_Magic_Raise";
-    public MagiaAdicional explosao = new MagiaAdicional();
+    public MagiaAdicional explosao = new MagiaAdicional { dano = 50 };
     public MagiaAdicional rajada = new MagiaAdicional { dano = 15, cooldown = 6, estado = "Upper Body.Burst" };
 
     private float ultimoAtaque = float.NegativeInfinity;
@@ -50,6 +52,17 @@ public class PlayerCombat : MonoBehaviour
     private int solicitacao;
     private int ataqueAtual;
     private GameObject preparoAtual;
+    [SerializeField] private int versaoExplosao;
+
+    void Awake()
+    {
+        // Migra apenas o valor padrao antigo; balanceamentos personalizados permanecem.
+        if (versaoExplosao == 0)
+        {
+            if (Mathf.Approximately(explosao.dano, 35)) explosao.dano = 50;
+            versaoExplosao = 1;
+        }
+    }
 
     void Start()
     {
@@ -186,6 +199,18 @@ public class PlayerCombat : MonoBehaviour
         {
             var efeito = Instantiate(explosao.efeito, transform.position + Vector3.up * 0.15f, Quaternion.identity);
             efeito.transform.localScale *= explosao.raio;
+            foreach (var particles in efeito.GetComponentsInChildren<ParticleSystem>())
+            {
+                var main = particles.main;
+                main.startSizeMultiplier *= 1.35f;
+                var emission = particles.emission;
+                for (int i = 0; i < emission.burstCount; i++)
+                {
+                    var burst = emission.GetBurst(i);
+                    burst.count = new ParticleSystem.MinMaxCurve(burst.count.constantMax * 1.5f);
+                    emission.SetBurst(i, burst);
+                }
+            }
         }
         var atingidos = new HashSet<Vida>();
         foreach (var collider in Physics.OverlapSphere(transform.position, explosao.raio, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
@@ -197,7 +222,13 @@ public class PlayerCombat : MonoBehaviour
             bool bloqueado = false;
             foreach (var hit in Physics.RaycastAll(origem, delta.normalized, delta.magnitude, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
                 if (!hit.transform.IsChildOf(transform) && hit.collider.GetComponentInParent<Vida>() == null) bloqueado = true;
-            if (!bloqueado) target.ReceberDano(explosao.dano);
+            if (!bloqueado)
+            {
+                float before = target.VidaAtual;
+                target.ReceberDano(explosao.dano);
+                if (target.VidaAtual < before && !target.EstaMorto)
+                    target.GetComponent<EnemyAI>()?.Empurrar(target.transform.position - transform.position, explosao.empurrao, explosao.duracaoEmpurrao);
+            }
         }
     }
 

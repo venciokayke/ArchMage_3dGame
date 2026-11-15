@@ -47,12 +47,14 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 direcaoDash;
     private Vector3 velocidadeHorizontal;
     private Vector3 velocidadeVertical;
+    private CombatDisplacement displacement;
 
     void Awake()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         vida = GetComponent<Vida>();
+        displacement = GetComponent<CombatDisplacement>();
         staminaAtual = Mathf.Max(0, staminaMaxima);
         if (animator != null && animator.runtimeAnimatorController != null)
         {
@@ -97,6 +99,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (controller.isGrounded && velocidadeVertical.y < 0) velocidadeVertical.y = -2;
         velocidadeVertical.y += gravidade * dt;
+        if (displacement != null) passo += displacement.ConsumirPasso(dt);
         controller.Move(passo + velocidadeVertical * dt);
         Vector3 real = Vector3.ProjectOnPlane(transform.position - antes, Vector3.up) / dt;
         VelocidadeAtual = real.magnitude;
@@ -150,11 +153,18 @@ public class PlayerMovement : MonoBehaviour
 
     void OnDisable()
     {
+        if (displacement != null) displacement.Limpar();
         estaDashando = retornandoDash = Correndo = false;
         velocidadeHorizontal = velocidadeVertical = Vector3.zero;
         VelocidadeAtual = 0;
         if (animator == null || animator.runtimeAnimatorController == null) return;
         if (parametroSpeed) animator.SetFloat("Speed", 0);
         if (movimentoDirecional) { animator.SetFloat("MoveX", 0); animator.SetFloat("MoveZ", 0); }
+    }
+    public void Empurrar(Vector3 direction, float speed, float duration)
+    {
+        if (!isActiveAndEnabled || (vida != null && vida.EstaMorto)) return;
+        if (displacement == null) displacement = GetComponent<CombatDisplacement>() ?? gameObject.AddComponent<CombatDisplacement>();
+        displacement.Aplicar(direction, speed, duration);
     }
 }
