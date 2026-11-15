@@ -13,10 +13,17 @@ public class SurvivalHUD : MonoBehaviour
     public UnityEngine.UI.Button reiniciar;
     private WaveManager.Estado anterior;
 
-    void Start()
+    void OnEnable()
     {
-        iniciar.onClick.AddListener(partida.Iniciar);
-        reiniciar.onClick.AddListener(partida.Reiniciar);
+        if (partida == null) return;
+        if (iniciar != null) iniciar.onClick.AddListener(partida.Iniciar);
+        if (reiniciar != null) reiniciar.onClick.AddListener(partida.Reiniciar);
+    }
+    void OnDisable()
+    {
+        if (partida == null) return;
+        if (iniciar != null) iniciar.onClick.RemoveListener(partida.Iniciar);
+        if (reiniciar != null) reiniciar.onClick.RemoveListener(partida.Reiniciar);
     }
     void Update()
     {

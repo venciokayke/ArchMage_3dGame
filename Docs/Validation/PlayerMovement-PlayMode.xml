@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Passed" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-15 18:34:11Z" end-time="2026-11-15 18:34:12Z" duration="0,9357447">
+  <test-suite type="TestSuite" id="1000" name="ArchMage_3dGame" fullname="ArchMage_3dGame" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-15 18:34:11Z" end-time="2026-11-15 18:34:12Z" duration="0.935745" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties />
+    <test-suite type="Assembly" id="1005" name="StartVerification.PlayTests.dll" fullname="C:/Jogos/Unity/ArchMage_3dGame/Temp/StartSceneVerification/Library/ScriptAssemblies/StartVerification.PlayTests.dll" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-15 18:34:11Z" end-time="2026-11-15 18:34:12Z" duration="0.929719" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="13584" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+      </properties>
+      <test-suite type="TestFixture" id="1001" name="ActualSceneStartTests" fullname="ActualSceneStartTests" classname="ActualSceneStartTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-15 18:34:11Z" end-time="2026-11-15 18:34:12Z" duration="0.928282" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1004" name="CurrentSurvivalSceneStartsThroughButtonAndSpawnsEnemies" fullname="ActualSceneStartTests.CurrentSurvivalSceneStartsThroughButtonAndSpawnsEnemies" methodname="CurrentSurvivalSceneStartsThroughButtonAndSpawnsEnemies" classname="ActualSceneStartTests" runstate="Runnable" seed="2039992921" result="Passed" start-time="2026-11-15 18:34:11Z" end-time="2026-11-15 18:34:12Z" duration="0.704266" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[START BEFORE: state=Inicio, enabled=True, panel=True, vertices=490, frame=10
+PASS Match Start: clique, painel fechado, comandos ativos e primeiro inimigo da cena real.
+START AFTER CLICK: state=Jogando, enabled=True, movement=True, combat=True
+PASS actual scene start: button, panel, player commands, wave=1, enemies=1.
+MOVE BEFORE: pos=(0.00, 0.01, -4.00), bounds=Center: (0.00, 1.08, -4.00), Extents: (0.40, 1.00, 0.40), scale=(1.00, 1.00, 1.00), rootMotion=False, components=Transform,CharacterController,PlayerMovement,Animator,PlayerCombat,Vida,PlayerHp,CombatFeedback
+MOVE FIRST: pos=(0.00, 0.01, -3.92), flags=Below
+MOVE AFTER: pos=(0.00, 0.01, -1.50), displacement=(0.00, 0.00, 2.50)
+[Combat] 4,654 SOLICITACAO 1 tipo=0
+[Combat] 4,654 ACEITO 1
+[Combat] 4,820 EVENTO 1
+[Combat] 4,820 INSTANCIADO 1
+PASS real Mage: sprint durante LancarMagia, LocomotionRate=1.4 e movimento durante Hit.
+]]></output>
+        </test-case>
+        <test-case id="1002" name="HudRebindsStartAfterReload" fullname="ActualSceneStartTests.HudRebindsStartAfterReload" methodname="HudRebindsStartAfterReload" classname="ActualSceneStartTests" runstate="Runnable" seed="1822578125" result="Passed" start-time="2026-11-15 18:34:12Z" end-time="2026-11-15 18:34:12Z" duration="0.204438" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+        </test-case>
+        <test-case id="1003" name="SprintStaminaAndDashPhysics" fullname="ActualSceneStartTests.SprintStaminaAndDashPhysics" methodname="SprintStaminaAndDashPhysics" classname="ActualSceneStartTests" runstate="Runnable" seed="671029098" result="Passed" start-time="2026-11-15 18:34:12Z" end-time="2026-11-15 18:34:12Z" duration="0.009002" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[PASS Player Movement: aceleracao, diagonal, sprint, stamina/atraso/recuperacao, dash esgotado/cooldown/parede, Hit e morte.
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

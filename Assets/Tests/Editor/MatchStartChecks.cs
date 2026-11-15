@@ -44,6 +44,10 @@ public static class MatchStartChecks
         Assert(EventSystem.current != null, "EventSystem ausente.");
         Assert(NavMesh.CalculateTriangulation().vertices.Length > 0, "NavMesh nao foi carregado.");
         Assert(manager.basico != null && manager.rapido != null && manager.distante != null, "Prefab de inimigo ausente.");
+        // Simula perda de listener runtime durante recarga sem apagar outros callbacks do botao.
+        hud.enabled = false;
+        hud.iniciar.onClick.RemoveListener(manager.Iniciar);
+        hud.enabled = true;
         ExecuteEvents.Execute(hud.iniciar.gameObject,
             new PointerEventData(EventSystem.current) { button = PointerEventData.InputButton.Left }, ExecuteEvents.pointerClickHandler);
         Assert(manager.Situacao == WaveManager.Estado.Jogando, "Evento do botao nao iniciou a partida; confira os listeners e os erros do WaveManager.");
