@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-15 17:17:29Z" end-time="2026-11-15 17:17:32Z" duration="3,2554543">
+  <test-suite type="TestSuite" id="1005" name="SurvivalPlayVerification" fullname="SurvivalPlayVerification" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-15 17:17:29Z" end-time="2026-11-15 17:17:32Z" duration="3.255454" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties />
+    <test-suite type="Assembly" id="1008" name="EnemyVerification.EditorTests.dll" fullname="C:/Jogos/Unity/ArchMage_3dGame/Temp/SurvivalPlayVerification/Library/ScriptAssemblies/EnemyVerification.EditorTests.dll" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-15 17:17:29Z" end-time="2026-11-15 17:17:32Z" duration="3.203938" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="37744" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+      </properties>
+      <test-suite type="TestFixture" id="1006" name="EnemyAssetSuite" fullname="EnemyAssetSuite" classname="EnemyAssetSuite" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-15 17:17:29Z" end-time="2026-11-15 17:17:32Z" duration="3.200166" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1007" name="ExistingPrefabsAreUpdatedWithBackups" fullname="EnemyAssetSuite.ExistingPrefabsAreUpdatedWithBackups" methodname="ExistingPrefabsAreUpdatedWithBackups" classname="EnemyAssetSuite" runstate="Runnable" seed="44196247" result="Passed" start-time="2026-11-15 17:17:29Z" end-time="2026-11-15 17:17:32Z" duration="3.161476" asserts="0">
+          <properties />
+          <output><![CDATA[PASS Enemy AI Presets: perfis, backup, GUIDs, Controller copiado, evento/ataque/Hit/Death preservados e prefab duplicado rejeitado.
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

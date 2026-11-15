@@ -84,8 +84,8 @@ public static class SurvivalGameSetup
             player.explosao.preparo = Effect("AreaPreparation", purple, 18, 0.85f, 0.15f, false);
             player.rajada.preparo = Effect("BurstPreparation", purple, 16, 0.25f, 0.15f, false);
             player.GetComponent<PlayerMovement>().efeitoDash = Effect("Dash", blue, 18, 0.25f, 1.5f, false);
-            var basic = EnemyPrefab(warrior, "Melee", 100, 10, 2.5f, false, enemySource.arma, enemyShot, hit, death);
-            var fast = EnemyPrefab(rogue, "Fast", 60, 8, 4f, false, enemySource.arma, enemyShot, hit, death);
+            var basic = EnemyPrefab(warrior, "Melee", 175, 10, 2.5f, false, enemySource.arma, enemyShot, hit, death);
+            var fast = EnemyPrefab(rogue, "Fast", 60, 8, 5.5f, false, enemySource.arma, enemyShot, hit, death);
             var ranged = EnemyPrefab(mage, "Ranged", 75, 12, 2.6f, true, null, enemyShot, hit, death);
             var walls = environment.transform.Find("Walls");
             if (walls != null)
@@ -271,6 +271,7 @@ public static class SurvivalGameSetup
         tree.AddChild(Clip("Idle_A", label + "Idle", true), 0);
         tree.AddChild(Clip("Running_A", label + "Run", true), 1);
         var idle = State(machine, "Locomotion", tree);
+        EnemyAISetup.ConfigureLocomotion(controller);
         machine.defaultState = idle;
         var attack = State(machine, "Attack", Clip(ranged ? "Ranged_Magic_Shoot" : "Melee_1H_Attack_Chop", label + "Attack", false, "AplicarGolpe"), 1.3f);
         var hit = State(machine, "Hit", Clip("Hit_A", label + "Hit", false));
@@ -342,7 +343,7 @@ public static class SurvivalGameSetup
             ai.raioDeteccao = 60;
             ai.raioPerderAlvo = 70;
             ai.alcanceAtaque = ranged ? 8 : 1.5f;
-            ai.distanciaMinima = 4;
+            ai.distanciaMinima = 6;
             ai.arma = weapon;
             ai.tempoParaSumir = deathDuration;
             ai.usarAnimationEvent = true;

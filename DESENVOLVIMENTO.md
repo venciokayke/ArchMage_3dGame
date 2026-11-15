@@ -41,3 +41,13 @@ Testes executados: guerreiro individual; alcance final e pausa durante golpe; ev
 Arquivos do checkpoint: Assets/Scripts/Enemy/EnemyAI.cs, Assets/Tests/Editor/EnemyNavigationChecks.cs (+ meta), Docs/Validation/EnemyAI-PlayMode.xml e este documento. Compilacao Roslyn contra assemblies da Unity passou; avisos anteriores permanecem. Cena, ondas, prefabs, animacoes, vida/dano, camera e HUD nao foram regravados.
 
 Falta: CP2 comando de Editor para aplicar HP/velocidades/perfis nos tres prefabs referenciados pelo WaveManager e ajustar apenas locomocao; CP3 regressao, instrucoes e relatorios. Testes visuais na arena aprovada, Hit/Death com os modelos reais e sensacao de combate continuam pendentes; a suite usa atores sinteticos para isolar navegacao e dano/eventos.
+
+## CP2 concluido — configuracao segura dos prefabs
+
+CP1 registrado no commit local e4de539. Novos arquivos: Assets/Editor/EnemyAISetup.cs e Assets/Tests/Editor/EnemyAISetupChecks.cs (ambos com meta), Docs/Validation/EnemyAI-Presets-EditMode.xml. Modificado Assets/Editor/SurvivalGameSetup.cs somente nos valores iniciais dos inimigos e na taxa de locomocao para futuras geracoes.
+
+Tools > Underdog > Update Enemy AI Presets resolve os tres prefabs reais do WaveManager da cena ativa; valida papeis/componentes/Controllers antes de escrever e pede confirmacao com os caminhos exatos. Cria backups dos prefabs e Controllers copiados em Assets/Generated/EnemyAI_<data>. Aplica Warrior 175 HP/2.5, Rogue 60 HP/5.5, Mage 75 HP/2.6 e distancias 6/7.5/9; configura separacao e decisoes. Somente o estado Locomotion passa a usar LocomotionRate. Clips, eventos, velocidades dos ataques, Hit/Death, dano, cooldown e referencias do manager continuam existentes. Em falha durante gravacao, restaura prefabs mantendo seus .meta/GUIDs. Nao altera cenas nem assets KayKit.
+
+Validacao: compilacao de todos os scripts contra Unity 2022.3.62f3 PASS; runner EditMode PASS em prefabs sinteticos (perfis, backups, GUIDs mantidos, Controllers originais preservados, ataque/evento/Hit/Death preservados, rejeicao de prefab duplicado). Relatorio XML anexado. Nao aplicado ainda aos prefabs da partida real: executar o menu na cena UnderdogSurvival, fora do Play Mode. Nao executar Prepare Survival Game para aplicar somente IA.
+
+Falta CP3: regressao de sobrevivencia/combate, verificacao dos hashes de arquivos protegidos, documentacao de parametros e testes de arena. Validacao visual e balanceamento dos modelos reais ainda precisam de Play Mode interativo.
