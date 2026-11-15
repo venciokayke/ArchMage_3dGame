@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.Animations;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
@@ -41,6 +42,9 @@ public static class EnemyAISetup
             throw new InvalidOperationException("Referencie os tres prefabs existentes no WaveManager.");
         string[] paths = prefabs.Select(p => AssetDatabase.GetAssetPath(p.gameObject)).ToArray();
         if (paths.Distinct().Count() != 3) throw new InvalidOperationException("Cada arquetipo precisa de seu proprio prefab.");
+        var stage = PrefabStageUtility.GetCurrentPrefabStage();
+        if (stage != null && paths.Contains(stage.assetPath) && stage.scene.isDirty)
+            throw new InvalidOperationException("Salve ou feche o Prefab Mode antes de atualizar a IA.");
         for (int i = 0; i < prefabs.Length; i++)
         {
             var ai = prefabs[i];
@@ -54,6 +58,10 @@ public static class EnemyAISetup
             var animator = ai.GetComponentInChildren<Animator>(true);
             var controller = animator != null ? animator.runtimeAnimatorController as AnimatorController : null;
             Locomotion(controller);
+            if (ai.GetComponentsInChildren<Component>(true).Any(c => c != null && EditorUtility.IsDirty(c)) ||
+                EditorUtility.IsDirty(ai.gameObject) ||
+                AssetDatabase.LoadAllAssetsAtPath(AssetDatabase.GetAssetPath(controller)).Any(EditorUtility.IsDirty))
+                throw new InvalidOperationException("Salve as alteracoes pendentes do prefab/Controller antes de atualizar: " + paths[i]);
             if (controller.parameters.Any(p => p.name == "LocomotionRate" && p.type != AnimatorControllerParameterType.Float))
                 throw new InvalidOperationException("Parametro LocomotionRate precisa ser Float: " + paths[i]);
         }

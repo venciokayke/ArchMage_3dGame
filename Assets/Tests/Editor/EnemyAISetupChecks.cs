@@ -55,6 +55,12 @@ public static class EnemyAISetupChecks
             try { EnemyAISetup.Apply(new[] { prefabs[0], prefabs[0], prefabs[2] }); }
             catch (InvalidOperationException) { rejected = true; }
             Assert(rejected, "Mesmo prefab nao pode receber dois papeis.");
+            EditorUtility.SetDirty(controller);
+            rejected = false;
+            try { EnemyAISetup.Apply(prefabs); }
+            catch (InvalidOperationException) { rejected = true; }
+            Assert(rejected, "Controller com alteracoes nao salvas deve ser preservado.");
+            AssetDatabase.SaveAssets();
             updated = EnemyAISetup.Apply(prefabs);
             for (int i = 0; i < prefabs.Length; i++)
             {
@@ -78,7 +84,7 @@ public static class EnemyAISetupChecks
             }
             Assert(!locomotion.speedParameterActive && !controller.parameters.Any(p => p.name == "LocomotionRate"), "Controller de origem nao pode ser alterado.");
             Assert(AnimationUtility.GetAnimationEvents(clip).Single().functionName == "AplicarGolpe", "Evento original deve permanecer intacto.");
-            Debug.Log("PASS Enemy AI Presets: perfis, backup, GUIDs, Controller copiado, evento/ataque/Hit/Death preservados e prefab duplicado rejeitado.");
+            Debug.Log("PASS Enemy AI Presets: perfis, backup, GUIDs, Controller copiado, evento/ataque/Hit/Death preservados, prefab duplicado e alteracoes nao salvas rejeitados.");
         }
         finally
         {

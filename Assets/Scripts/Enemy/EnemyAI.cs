@@ -13,7 +13,7 @@ public class EnemyAI : MonoBehaviour
     public float velocidadeRotacao = 8f;
     public float gravidade = -9.81f;
 
-    [Header("DetecÃ§Ã£o")]
+    [Header("Detecção")]
     public float raioDeteccao = 10f;
     public float raioPerderAlvo = 15f;
 
@@ -21,7 +21,7 @@ public class EnemyAI : MonoBehaviour
     public float alcanceAtaque = 1.5f;
     public int dano = 1;
     public float intervaloAtaque = 1.5f;
-    // Tempo entre o inÃ­cio da animaÃ§Ã£o de ataque e o golpe acertar.
+    // Tempo entre o início da animação de ataque e o golpe acertar.
     public float atrasoDoGolpe = 0.4f;
 
     [Header("Arma")]
@@ -312,7 +312,7 @@ public class EnemyAI : MonoBehaviour
         Transform mao = ProcurarFilho(transform, ossoDaMao);
         if (mao == null)
         {
-            Debug.LogWarning($"{name}: osso '{ossoDaMao}' nÃ£o encontrado para equipar a arma.");
+            Debug.LogWarning($"{name}: osso '{ossoDaMao}' não encontrado para equipar a arma.");
             return;
         }
 
@@ -427,7 +427,7 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        // SÃ³ acerta se o jogador ainda estiver no alcance quando o golpe desce.
+        // Só acerta se o jogador ainda estiver no alcance quando o golpe desce.
         if (DistanciaHorizontal(alvo.position) > alcanceAtaque * 1.2f)
         {
             return;
@@ -447,7 +447,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (!vida.EstaMorto && momentoDoGolpe < 0 && !AnimacaoDeAtaque()) SetTrigger("Hit");
 
-        // Leva dano de longe (magia): passa a perseguir mesmo fora do raio de detecÃ§Ã£o.
+        // Leva dano de longe (magia): passa a perseguir mesmo fora do raio de detecção.
         if (estado == Estado.Parado && alvo != null)
         {
             estado = Estado.Perseguindo;
@@ -461,7 +461,7 @@ public class EnemyAI : MonoBehaviour
         estado = Estado.Morto;
         momentoDoGolpe = -1f;
         SetFloat("Speed", 0f);
-        // O Hit do golpe fatal ainda estÃ¡ armado e tiraria o esqueleto da animaÃ§Ã£o de morte.
+        // O Hit do golpe fatal ainda está armado e tiraria o esqueleto da animação de morte.
         ResetTrigger("Hit");
         ResetTrigger("Attack");
         SetTrigger("Die");
@@ -550,7 +550,7 @@ public class EnemyAI : MonoBehaviour
         return diferenca.magnitude;
     }
 
-    // Os parÃ¢metros do Animator sÃ£o opcionais: o inimigo funciona mesmo sem eles.
+    // Os parâmetros do Animator são opcionais: o inimigo funciona mesmo sem eles.
     private void SetFloat(string nome, float valor)
     {
         if (TemParametro(nome, AnimatorControllerParameterType.Float))

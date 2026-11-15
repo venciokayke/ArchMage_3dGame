@@ -51,3 +51,20 @@ Tools > Underdog > Update Enemy AI Presets resolve os tres prefabs reais do Wave
 Validacao: compilacao de todos os scripts contra Unity 2022.3.62f3 PASS; runner EditMode PASS em prefabs sinteticos (perfis, backups, GUIDs mantidos, Controllers originais preservados, ataque/evento/Hit/Death preservados, rejeicao de prefab duplicado). Relatorio XML anexado. Nao aplicado ainda aos prefabs da partida real: executar o menu na cena UnderdogSurvival, fora do Play Mode. Nao executar Prepare Survival Game para aplicar somente IA.
 
 Falta CP3: regressao de sobrevivencia/combate, verificacao dos hashes de arquivos protegidos, documentacao de parametros e testes de arena. Validacao visual e balanceamento dos modelos reais ainda precisam de Play Mode interativo.
+
+## CP3 concluido — regressao e entrega (2026-11-15)
+
+CP2 registrado no commit local 30e7d51. Arquivos desta etapa: Docs/EnemyAI.md (instrucao, parametros e roteiro manual), relatorios XML em Docs/Validation, EnemyAISetup.cs/EnemyAISetupChecks.cs (recusa de alteracoes nao salvas no prefab/Controller/Prefab Mode) e EnemyAI.cs (restaurada acentuacao original de comentarios/rotulos). Nao houve outra mudanca de gameplay nesta etapa.
+
+Validacoes finais executadas:
+- Compilacao de todos os scripts runtime/Editor contra assemblies Unity 2022.3.62f3: PASS; somente os dois avisos preexistentes.
+- Runner Unity EditMode em projeto isolado: 3/3 PASS. Presets via AssetDatabase/PrefabUtility, preservacao de backup/GUID/Controller/eventos/Hit/Death, slots duplicados e assets com alteracoes nao salvas rejeitados; regressao de vida e PlayerCombatSelfCheck existente.
+- Runner Unity PlayMode em projeto isolado: 2/2 PASS. Suite nova de navegacao com colisores/agentes reais e suite SurvivalChecks existente (projeteis 60/10 FPS, dano unico, area, cinco ondas vazias/vitoria/derrota). Grupo de 25: 1000 decisoes, 259 caminhos em 14 s simulados no ultimo run; nao e medicao de CPU/GPU.
+- Comparacao SHA256 de 3700 arquivos protegidos: zero diferencas. Diff contra baseline 4011aaf tambem sem alteracao em cenas, assets gerados/originais, ondas, jogador, combate/vida, camera, HUD, pacotes ou ProjectSettings.
+- git diff --check: PASS. Nenhum push ou merge realizado.
+
+Para aplicar: abrir UnderdogSurvival fora do Play Mode, salvar trabalho pendente nos assets, Tools > Underdog > Update Enemy AI Presets e conferir/confirmar os tres caminhos exibidos. O menu faz os backups e aplica os perfis; a partida/cena real nao foi regravada por esta sessao. NAO executar Prepare Survival Game para esta atualizacao. Nao precisa rebake do NavMesh existente.
+
+Pendentes exclusivamente no Editor interativo: validar sensacao/animacoes dos modelos reais, Mage junto de paredes/colunas reais, dash real do jogador no grupo, tres magias, cinco ondas completas com combate, derrota/reinicio e Profiler com 15-25 agentes. Roteiro e todos os parametros em Docs/EnemyAI.md. Nao declarar esses testes manuais concluidos com base na compilacao ou nas fixtures sinteticas. Mudanca de HP/velocidade pode exigir ajuste fino posterior sem alterar a composicao das ondas.
+
+Estado de retomada: runtime, ferramenta segura e suites concluidos; nao refazer CP1/CP2. Proxima sessao deve aplicar/validar na arena e corrigir apenas problemas observados. O arquivo nao rastreado Assets/Generated/UnderdogSurvival/EditorBuildSettings.backup.txt.meta apareceu no import do Editor; foi preservado e ficou fora dos commits de IA. Commits locais de implementacao: e4de539 e 30e7d51; o commit deste checkpoint sucede ambos.
