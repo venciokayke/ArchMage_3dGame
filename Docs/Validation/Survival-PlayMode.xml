@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Passed" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-15 01:07:43Z" end-time="2026-11-15 01:07:49Z" duration="6,5670344">
+  <test-suite type="TestSuite" id="1000" name="SurvivalPlayVerification" fullname="SurvivalPlayVerification" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-15 01:07:43Z" end-time="2026-11-15 01:07:49Z" duration="6.567034" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties />
+    <test-suite type="Assembly" id="1005" name="SurvivalVerification.PlayTests.dll" fullname="C:/Jogos/Unity/ArchMage_3dGame/Temp/SurvivalPlayVerification/Library/ScriptAssemblies/SurvivalVerification.PlayTests.dll" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-15 01:07:43Z" end-time="2026-11-15 01:07:49Z" duration="6.561587" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="2556" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+      </properties>
+      <test-suite type="TestFixture" id="1001" name="PreparedScenePlaySuite" fullname="PreparedScenePlaySuite" classname="PreparedScenePlaySuite" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-15 01:07:43Z" end-time="2026-11-15 01:07:49Z" duration="6.548200" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1002" name="AnimationEventsArchetypesVictoryRestartAndDeath" fullname="PreparedScenePlaySuite.AnimationEventsArchetypesVictoryRestartAndDeath" methodname="AnimationEventsArchetypesVictoryRestartAndDeath" classname="PreparedScenePlaySuite" runstate="Runnable" seed="1540269172" result="Passed" start-time="2026-11-15 01:07:43Z" end-time="2026-11-15 01:07:49Z" duration="6.538624" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[[Combat] 0,491 SOLICITACAO 1 tipo=0
+[Combat] 0,491 ACEITO 1
+[Combat] 0,654 EVENTO 1
+[Combat] 0,654 INSTANCIADO 1
+[Combat] 0,984 SOLICITACAO 2 tipo=1
+[Combat] 0,984 ACEITO 2
+[Combat] 1,737 EVENTO 2
+[Combat] 1,884 SOLICITACAO 3 tipo=2
+[Combat] 1,884 ACEITO 3
+[Combat] 2,001 EVENTO 3
+[Combat] 2,001 INSTANCIADO 3
+[Combat] 2,101 INSTANCIADO 3
+[Combat] 2,201 INSTANCIADO 3
+PASS Prepared Play: tres inimigos reais no NavMesh, tres habilidades por Animation Event (incluindo Hit+dash), vitoria, reinicio limpo e Death/GameOver.
+]]></output>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1003" name="SurvivalPlaySuite" fullname="SurvivalPlaySuite" classname="SurvivalPlaySuite" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-15 01:07:49Z" end-time="2026-11-15 01:07:49Z" duration="0.012215" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1004" name="CombatAndWaveLifecycle" fullname="SurvivalPlaySuite.CombatAndWaveLifecycle" methodname="CombatAndWaveLifecycle" classname="SurvivalPlaySuite" runstate="Runnable" seed="1245304570" result="Passed" start-time="2026-11-15 01:07:49Z" end-time="2026-11-15 01:07:49Z" duration="0.011609" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[PASS Survival Play: passos de projetil 60/10 FPS, dano unico, bloqueio apos morte, area sem dano duplicado/atraves de parede, cinco ondas, vitoria e derrota.
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

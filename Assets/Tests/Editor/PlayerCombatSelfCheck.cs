@@ -13,6 +13,7 @@ public static class PlayerCombatSelfCheck
             throw new InvalidOperationException("Execute fora do Play Mode.");
 
         var player = new GameObject("Combat self-check");
+        var enemy = new GameObject("Enemy cancellation self-check");
         var cameraObject = new GameObject("Combat self-check camera");
         var prefab = new GameObject("Combat self-check projectile");
         prefab.AddComponent<Projectile>();
@@ -22,6 +23,16 @@ public static class PlayerCombatSelfCheck
         controller.layers[0].stateMachine.AddState("Ranged_Magic_Raise");
         try
         {
+            var enemyAI = enemy.AddComponent<EnemyAI>();
+            Set(enemyAI, "momentoDoGolpe", 0f);
+            Call(enemyAI, "AplicarGolpePendente");
+            Check((float)Get(enemyAI, "momentoDoGolpe") < 0f, "Inimigo deve cancelar golpe quando o alvo desaparece.");
+            Set(enemyAI, "alvo", player.transform);
+            player.SetActive(false);
+            Set(enemyAI, "momentoDoGolpe", 0f);
+            Call(enemyAI, "AplicarGolpePendente");
+            Check((float)Get(enemyAI, "momentoDoGolpe") < 0f, "Inimigo deve cancelar golpe contra jogador desativado.");
+            player.SetActive(true);
             var animator = player.AddComponent<Animator>();
             animator.runtimeAnimatorController = controller;
             var camera = cameraObject.AddComponent<Camera>();
@@ -96,6 +107,7 @@ public static class PlayerCombatSelfCheck
                 if (item.name == prefab.name + "(Clone)")
                     UnityEngine.Object.DestroyImmediate(item);
             UnityEngine.Object.DestroyImmediate(player);
+            UnityEngine.Object.DestroyImmediate(enemy);
             UnityEngine.Object.DestroyImmediate(cameraObject);
             UnityEngine.Object.DestroyImmediate(prefab);
             UnityEngine.Object.DestroyImmediate(controller);

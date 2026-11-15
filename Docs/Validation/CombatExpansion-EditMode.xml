@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Passed" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-15 19:56:43Z" end-time="2026-11-15 19:56:46Z" duration="2,8008157">
+  <test-suite type="TestSuite" id="1008" name="ArchMage_3dGame" fullname="ArchMage_3dGame" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-15 19:56:43Z" end-time="2026-11-15 19:56:46Z" duration="2.800816" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties />
+    <test-suite type="Assembly" id="1014" name="StartVerification.EditorTests.dll" fullname="C:/Jogos/Unity/ArchMage_3dGame/Temp/StartSceneVerification/Library/ScriptAssemblies/StartVerification.EditorTests.dll" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-15 19:56:43Z" end-time="2026-11-15 19:56:46Z" duration="2.784636" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="16264" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+      </properties>
+      <test-suite type="TestFixture" id="1009" name="CombatAssetTests" fullname="CombatAssetTests" classname="CombatAssetTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-15 19:56:43Z" end-time="2026-11-15 19:56:46Z" duration="2.713658" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1010" name="ActualSceneAndPrefabReferencesSurviveSetup" fullname="CombatAssetTests.ActualSceneAndPrefabReferencesSurviveSetup" methodname="ActualSceneAndPrefabReferencesSurviveSetup" classname="CombatAssetTests" runstate="Runnable" seed="312249665" result="Passed" start-time="2026-11-15 19:56:43Z" end-time="2026-11-15 19:56:46Z" duration="2.703172" asserts="0">
+          <properties />
+          <output><![CDATA[State "Locomotion" in Controller "Warrior" uses parameter "LocomotionRate" which does not exist.
+State "Locomotion" in Controller "Warrior" uses parameter "LocomotionRate" which does not exist.
+State "Locomotion" in Controller "Rogue" uses parameter "LocomotionRate" which does not exist.
+State "Locomotion" in Controller "Rogue" uses parameter "LocomotionRate" which does not exist.
+State "Locomotion" in Controller "Mage" uses parameter "LocomotionRate" which does not exist.
+State "Locomotion" in Controller "Mage" uses parameter "LocomotionRate" which does not exist.
+PASS Combat Setup: catalogo, navegacao, aviso, ataques/eventos, preparos, Rogue Dash e Mage superior configurados.
+PASS Combat Assets: backups, fileIDs/GUIDs, camera/HUD/ondas/dash preservados; Mage upper mask, especiais, Rogue Dodge_Forward e materiais/rajada configurados.
+]]></output>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1011" name="ExistingEditorChecks" fullname="ExistingEditorChecks" classname="ExistingEditorChecks" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-15 19:56:46Z" end-time="2026-11-15 19:56:46Z" duration="0.069635" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <output><![CDATA[GfxDevice renderer is null. Unity cannot update the Ambient Probe and Reflection Probes that the SkyManager generates. Run the Editor without the -nographics argument or generate lighting for your scene.
+]]></output>
+        <test-case id="1013" name="CombatFeedback" fullname="ExistingEditorChecks.CombatFeedback" methodname="CombatFeedback" classname="ExistingEditorChecks" runstate="Runnable" seed="28014247" result="Passed" start-time="2026-11-15 19:56:46Z" end-time="2026-11-15 19:56:46Z" duration="0.007126" asserts="0">
+          <properties />
+          <output><![CDATA[PASS Combat Feedback: OnDisable com cache ausente/incompleto, Renderer removido e restauracao normal.
+]]></output>
+        </test-case>
+        <test-case id="1012" name="PlayerCombat" fullname="ExistingEditorChecks.PlayerCombat" methodname="PlayerCombat" classname="ExistingEditorChecks" runstate="Runnable" seed="1837736402" result="Passed" start-time="2026-11-15 19:56:46Z" end-time="2026-11-15 19:56:46Z" duration="0.034728" asserts="0">
+          <properties />
+          <output><![CDATA[[Combat] 0,000 EVENTO 0
+[Combat] 0,000 SOLICITACAO 1 tipo=0
+[Combat] 0,000 ACEITO 1
+[Combat] 0,000 EVENTO 1
+[Combat] 0,000 INSTANCIADO 1
+[Combat] 0,000 EVENTO 1
+[Combat] 0,000 SOLICITACAO 2 tipo=0
+[Combat] 0,000 REJEITADO cooldown
+[Combat] 0,000 SOLICITACAO 3 tipo=0
+[Combat] 0,000 ACEITO 3
+[Combat] 0,000 SOLICITACAO 4 tipo=0
+[Combat] 0,000 REJEITADO pendente
+[Combat] 0,000 EVENTO 3
+[Combat] 0,000 INSTANCIADO 3
+[Combat] 0,000 EVENTO 3
+[Combat] 0,000 EVENTO 3
+[Combat] 0,000 CANCELADO desativado
+[Combat] 0,000 EVENTO 3
+[Combat] 0,000 EVENTO 3
+[Combat] 0,000 EVENTO 3
+[Combat] 0,000 EVENTO 3
+[Combat] 0,000 CANCELADO desativado
+[Combat] 0,000 EVENTO 3
+[Combat] 0,000 EVENTO 3
+[Combat] 0,000 EVENTO 3
+[Combat] 0,000 SOLICITACAO 5 tipo=0
+[Combat] 0,000 ACEITO 5
+[Combat] 0,000 EVENTO 5
+[Combat] 0,000 INSTANCIADO 5
+[Combat] 0,000 EVENTO 5
+Underdog: mira XZ, zona morta, offset, evento, disparo unico, cooldown e cancelamento passaram.
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

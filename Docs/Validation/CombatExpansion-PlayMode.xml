@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="8" result="Passed" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-15 19:54:55Z" end-time="2026-11-15 19:55:00Z" duration="4,457891">
+  <test-suite type="TestSuite" id="1000" name="ArchMage_3dGame" fullname="ArchMage_3dGame" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-11-15 19:54:55Z" end-time="2026-11-15 19:55:00Z" duration="4.457891" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties />
+    <test-suite type="Assembly" id="1012" name="StartVerification.PlayTests.dll" fullname="C:/Jogos/Unity/ArchMage_3dGame/Temp/StartSceneVerification/Library/ScriptAssemblies/StartVerification.PlayTests.dll" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-11-15 19:54:55Z" end-time="2026-11-15 19:55:00Z" duration="4.451471" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="12180" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+      </properties>
+      <test-suite type="TestFixture" id="1001" name="CombatCoreTests" fullname="CombatCoreTests" classname="CombatCoreTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-15 19:54:55Z" end-time="2026-11-15 19:54:56Z" duration="0.736061" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1002" name="BuffsAndFiveWaves" fullname="CombatCoreTests.BuffsAndFiveWaves" methodname="BuffsAndFiveWaves" classname="CombatCoreTests" runstate="Runnable" seed="513327733" result="Passed" start-time="2026-11-15 19:54:55Z" end-time="2026-11-15 19:54:56Z" duration="0.446145" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[PASS: seis buffs, acumulos aditivos, limites, vitalidade e resistencia.
+PASS: 40 spawns, quatro pausas sem spawn, selecao unica por botao e quinta onda/vitoria.
+PASS: morte durante selecao cancela e bloqueia escolha tardia.
+PASS Buffs: seis efeitos/acumulos/limites, escolhas unicas, morte, 40 spawns, quatro selecoes e quinta onda/vitoria.
+]]></output>
+        </test-case>
+        <test-case id="1003" name="SpecialsAndSafeDisplacement" fullname="CombatCoreTests.SpecialsAndSafeDisplacement" methodname="SpecialsAndSafeDisplacement" classname="CombatCoreTests" runstate="Runnable" seed="2013234916" result="Passed" start-time="2026-11-15 19:54:56Z" end-time="2026-11-15 19:54:56Z" duration="0.277752" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+PASS: pesado lento e empurrao.
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+PASS: aviso de Rogue e dano unico.
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+PASS: direcao travada e esquiva.
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+PASS: morte cancela preparo.
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+PASS: Mage movel e leque de tres projeteis.
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+PASS: empurrao respeita parede/NavMesh e termina.
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+Animator is not playing an AnimatorController
+PASS: explosao 50, multiplos alvos, dano unico e empurrao radial.
+PASS Combat Expansion: pesado/empurrao, aviso/direcao fixa/dano unico/cancelamento, Mage movel/rajada e NavMesh.
+]]></output>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1004" name="CombatSceneTests" fullname="CombatSceneTests" classname="CombatSceneTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-15 19:54:56Z" end-time="2026-11-15 19:54:57Z" duration="1.160842" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1007" name="ActualRestartClearsBuffsAndRestoresAttributes" fullname="CombatSceneTests.ActualRestartClearsBuffsAndRestoresAttributes" methodname="ActualRestartClearsBuffsAndRestoresAttributes" classname="CombatSceneTests" runstate="Runnable" seed="398240591" result="Passed" start-time="2026-11-15 19:54:56Z" end-time="2026-11-15 19:54:57Z" duration="0.674154" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[PASS actual restart: cena recarregada sem buffs, dano/vida/velocidade/resistencia restaurados.
+]]></output>
+        </test-case>
+        <test-case id="1005" name="ConfiguredMageMovesLegsAndFiresByAnimationEvent" fullname="CombatSceneTests.ConfiguredMageMovesLegsAndFiresByAnimationEvent" methodname="ConfiguredMageMovesLegsAndFiresByAnimationEvent" classname="CombatSceneTests" runstate="Runnable" seed="2042814606" result="Passed" start-time="2026-11-15 19:54:57Z" end-time="2026-11-15 19:54:57Z" duration="0.232125" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[State "Locomotion" in Controller "Mage" uses parameter "LocomotionRate" which does not exist.
+PASS real Mage: pernas em Locomotion, tronco separado, recuo e projetil por Animation Event.
+]]></output>
+        </test-case>
+        <test-case id="1006" name="ConfiguredRogueWarnsThenUsesDodgeClip" fullname="CombatSceneTests.ConfiguredRogueWarnsThenUsesDodgeClip" methodname="ConfiguredRogueWarnsThenUsesDodgeClip" classname="CombatSceneTests" runstate="Runnable" seed="641505077" result="Passed" start-time="2026-11-15 19:54:57Z" end-time="2026-11-15 19:54:57Z" duration="0.253502" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[State "Locomotion" in Controller "Rogue" uses parameter "LocomotionRate" which does not exist.
+PASS real Rogue: aviso transparente, preparo e animacao Dodge_Forward na investida.
+]]></output>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1008" name="RegressionTests" fullname="RegressionTests" classname="RegressionTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-15 19:54:57Z" end-time="2026-11-15 19:55:00Z" duration="2.552914" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1011" name="ExistingEnemyCrowds" fullname="RegressionTests.ExistingEnemyCrowds" methodname="ExistingEnemyCrowds" classname="RegressionTests" runstate="Runnable" seed="336197973" result="Passed" start-time="2026-11-15 19:54:57Z" end-time="2026-11-15 19:55:00Z" duration="2.515056" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[PASS: guerreiro individual.
+PASS: alcance final, pausa no ataque, evento unico, cooldown, esquiva e cancelamento por morte.
+PASS: oito melee com destinos distribuidos.
+PASS: flanco e aproximacao final.
+PASS: distancia e recuo ranged.
+PASS: recuo proximo da borda.
+PASS: busca de linha de tiro com obstaculo.
+PASS: 25 agentes mistos; 1003 decisoes, 269 caminhos em 14,0s simulados; dash e morte.
+PASS Enemy Navigation: individual, melee distribuido, flanco, ranged, parede, cobertura, 25 agentes mistos e alvo em dash.
+]]></output>
+        </test-case>
+        <test-case id="1010" name="ExistingPlayerMovement" fullname="RegressionTests.ExistingPlayerMovement" methodname="ExistingPlayerMovement" classname="RegressionTests" runstate="Runnable" seed="803984232" result="Passed" start-time="2026-11-15 19:55:00Z" end-time="2026-11-15 19:55:00Z" duration="0.009773" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[PASS Player Movement: aceleracao, diagonal, sprint, stamina/atraso/recuperacao, dash esgotado/cooldown/parede, Hit e morte.
+]]></output>
+        </test-case>
+        <test-case id="1009" name="ExistingSurvival" fullname="RegressionTests.ExistingSurvival" methodname="ExistingSurvival" classname="RegressionTests" runstate="Runnable" seed="1298762135" result="Passed" start-time="2026-11-15 19:55:00Z" end-time="2026-11-15 19:55:00Z" duration="0.026646" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[PASS Survival Play: passos de projetil 60/10 FPS, dano unico, bloqueio apos morte, area sem dano duplicado/atraves de parede, cinco ondas, vitoria e derrota.
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

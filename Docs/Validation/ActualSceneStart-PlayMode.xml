@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-15 18:08:24Z" end-time="2026-11-15 18:08:27Z" duration="2,5834204">
+  <test-suite type="TestSuite" id="1000" name="ArchMage_3dGame" fullname="ArchMage_3dGame" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-15 18:08:24Z" end-time="2026-11-15 18:08:27Z" duration="2.583420" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties />
+    <test-suite type="Assembly" id="1003" name="StartVerification.PlayTests.dll" fullname="C:/Jogos/Unity/ArchMage_3dGame/Temp/StartSceneVerification/Library/ScriptAssemblies/StartVerification.PlayTests.dll" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-15 18:08:24Z" end-time="2026-11-15 18:08:27Z" duration="2.576633" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="29088" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+      </properties>
+      <test-suite type="TestFixture" id="1001" name="ActualSceneStartTests" fullname="ActualSceneStartTests" classname="ActualSceneStartTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-15 18:08:24Z" end-time="2026-11-15 18:08:27Z" duration="2.575328" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1002" name="CurrentSurvivalSceneStartsThroughButtonAndSpawnsEnemies" fullname="ActualSceneStartTests.CurrentSurvivalSceneStartsThroughButtonAndSpawnsEnemies" methodname="CurrentSurvivalSceneStartsThroughButtonAndSpawnsEnemies" classname="ActualSceneStartTests" runstate="Runnable" seed="971641701" result="Passed" start-time="2026-11-15 18:08:24Z" end-time="2026-11-15 18:08:27Z" duration="2.563381" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[START BEFORE: state=Inicio, enabled=True, panel=True, vertices=490, frame=10
+PASS Match Start: clique, painel fechado, comandos ativos e primeiro inimigo da cena real.
+START AFTER CLICK: state=Jogando, enabled=True, movement=True, combat=True
+PASS actual scene start: button, panel, player commands, wave=1, enemies=1.
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

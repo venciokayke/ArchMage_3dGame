@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="4" result="Passed" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-15 17:44:14Z" end-time="2026-11-15 17:44:23Z" duration="9,4005181">
+  <test-suite type="TestSuite" id="1008" name="SurvivalPlayVerification" fullname="SurvivalPlayVerification" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-15 17:44:14Z" end-time="2026-11-15 17:44:23Z" duration="9.400518" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties />
+    <test-suite type="Assembly" id="1014" name="EnemyVerification.EditorTests.dll" fullname="C:/Jogos/Unity/ArchMage_3dGame/Temp/SurvivalPlayVerification/Library/ScriptAssemblies/EnemyVerification.EditorTests.dll" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-15 17:44:14Z" end-time="2026-11-15 17:44:23Z" duration="9.381033" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="27732" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+      </properties>
+      <test-suite type="TestFixture" id="1009" name="EnemyAssetSuite" fullname="EnemyAssetSuite" classname="EnemyAssetSuite" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-15 17:44:14Z" end-time="2026-11-15 17:44:23Z" duration="9.379333" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1010" name="CombatFeedbackSurvivesReload" fullname="EnemyAssetSuite.CombatFeedbackSurvivesReload" methodname="CombatFeedbackSurvivesReload" classname="EnemyAssetSuite" runstate="Runnable" seed="1690063313" result="Passed" start-time="2026-11-15 17:44:14Z" end-time="2026-11-15 17:44:14Z" duration="0.018210" asserts="0">
+          <properties />
+          <output><![CDATA[PASS Combat Feedback: OnDisable com cache ausente/incompleto, Renderer removido e restauracao normal.
+]]></output>
+        </test-case>
+        <test-case id="1012" name="ExistingHealthRegression" fullname="EnemyAssetSuite.ExistingHealthRegression" methodname="ExistingHealthRegression" classname="EnemyAssetSuite" runstate="Runnable" seed="897813690" result="Passed" start-time="2026-11-15 17:44:14Z" end-time="2026-11-15 17:44:14Z" duration="0.004534" asserts="0">
+          <properties />
+          <output><![CDATA[PASS Survival Edit: HP, invulnerabilidade, cura e morte unica.
+]]></output>
+        </test-case>
+        <test-case id="1011" name="ExistingPlayerCombatRegression" fullname="EnemyAssetSuite.ExistingPlayerCombatRegression" methodname="ExistingPlayerCombatRegression" classname="EnemyAssetSuite" runstate="Runnable" seed="1652208157" result="Passed" start-time="2026-11-15 17:44:14Z" end-time="2026-11-15 17:44:14Z" duration="0.052543" asserts="0">
+          <properties />
+          <output><![CDATA[[Combat] 0,020 EVENTO 0
+[Combat] 0,020 SOLICITACAO 1 tipo=0
+[Combat] 0,020 ACEITO 1
+[Combat] 0,020 EVENTO 1
+[Combat] 0,020 INSTANCIADO 1
+[Combat] 0,020 EVENTO 1
+[Combat] 0,020 SOLICITACAO 2 tipo=0
+[Combat] 0,020 REJEITADO cooldown
+[Combat] 0,020 SOLICITACAO 3 tipo=0
+[Combat] 0,020 ACEITO 3
+[Combat] 0,020 SOLICITACAO 4 tipo=0
+[Combat] 0,020 REJEITADO pendente
+[Combat] 0,020 EVENTO 3
+[Combat] 0,020 INSTANCIADO 3
+[Combat] 0,020 EVENTO 3
+[Combat] 0,020 EVENTO 3
+[Combat] 0,020 CANCELADO desativado
+[Combat] 0,020 EVENTO 3
+[Combat] 0,020 EVENTO 3
+[Combat] 0,020 EVENTO 3
+[Combat] 0,020 EVENTO 3
+[Combat] 0,020 CANCELADO desativado
+[Combat] 0,020 EVENTO 3
+[Combat] 0,020 EVENTO 3
+[Combat] 0,020 EVENTO 3
+[Combat] 0,020 SOLICITACAO 5 tipo=0
+[Combat] 0,020 ACEITO 5
+[Combat] 0,020 EVENTO 5
+[Combat] 0,020 INSTANCIADO 5
+[Combat] 0,020 EVENTO 5
+Underdog: mira XZ, zona morta, offset, evento, disparo unico, cooldown e cancelamento passaram.
+]]></output>
+        </test-case>
+        <test-case id="1013" name="ExistingPrefabsAreUpdatedWithBackups" fullname="EnemyAssetSuite.ExistingPrefabsAreUpdatedWithBackups" methodname="ExistingPrefabsAreUpdatedWithBackups" classname="EnemyAssetSuite" runstate="Runnable" seed="1577686109" result="Passed" start-time="2026-11-15 17:44:14Z" end-time="2026-11-15 17:44:23Z" duration="9.284081" asserts="0">
+          <properties />
+          <output><![CDATA[PASS Enemy AI Presets: perfis, backup, GUIDs, Controller copiado, evento/ataque/Hit/Death preservados, prefab duplicado e alteracoes nao salvas rejeitados.
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

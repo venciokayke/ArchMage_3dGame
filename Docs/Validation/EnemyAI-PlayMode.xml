@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Passed" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-15 17:22:24Z" end-time="2026-11-15 17:22:29Z" duration="4,5093454">
+  <test-suite type="TestSuite" id="1000" name="SurvivalPlayVerification" fullname="SurvivalPlayVerification" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-15 17:22:24Z" end-time="2026-11-15 17:22:29Z" duration="4.509345" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties />
+    <test-suite type="Assembly" id="1004" name="EnemyVerification.PlayTests.dll" fullname="C:/Jogos/Unity/ArchMage_3dGame/Temp/SurvivalPlayVerification/Library/ScriptAssemblies/EnemyVerification.PlayTests.dll" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-15 17:22:24Z" end-time="2026-11-15 17:22:29Z" duration="4.488059" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="35972" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+      </properties>
+      <test-suite type="TestFixture" id="1001" name="EnemyNavigationSuite" fullname="EnemyNavigationSuite" classname="EnemyNavigationSuite" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-15 17:22:24Z" end-time="2026-11-15 17:22:29Z" duration="4.483811" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1002" name="ExistingSurvivalRegression" fullname="EnemyNavigationSuite.ExistingSurvivalRegression" methodname="ExistingSurvivalRegression" classname="EnemyNavigationSuite" runstate="Runnable" seed="1693997072" result="Passed" start-time="2026-11-15 17:22:24Z" end-time="2026-11-15 17:22:24Z" duration="0.111469" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[PASS Survival Play: passos de projetil 60/10 FPS, dano unico, bloqueio apos morte, area sem dano duplicado/atraves de parede, cinco ondas, vitoria e derrota.
+]]></output>
+        </test-case>
+        <test-case id="1003" name="NavigationAndCrowds" fullname="EnemyNavigationSuite.NavigationAndCrowds" methodname="NavigationAndCrowds" classname="EnemyNavigationSuite" runstate="Runnable" seed="847736785" result="Passed" start-time="2026-11-15 17:22:24Z" end-time="2026-11-15 17:22:29Z" duration="4.341363" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+          </properties>
+          <output><![CDATA[PASS: guerreiro individual.
+PASS: alcance final, pausa no ataque, evento unico, cooldown, esquiva e cancelamento por morte.
+PASS: oito melee com destinos distribuidos.
+PASS: flanco e aproximacao final.
+PASS: distancia e recuo ranged.
+PASS: recuo proximo da borda.
+PASS: busca de linha de tiro com obstaculo.
+PASS: 25 agentes mistos; 1000 decisoes, 259 caminhos em 14,0s simulados; dash e morte.
+PASS Enemy Navigation: individual, melee distribuido, flanco, ranged, parede, cobertura, 25 agentes mistos e alvo em dash.
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

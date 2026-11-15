@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Passed" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-15 17:25:01Z" end-time="2026-11-15 17:25:03Z" duration="2,00678">
+  <test-suite type="TestSuite" id="1007" name="SurvivalPlayVerification" fullname="SurvivalPlayVerification" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-15 17:25:01Z" end-time="2026-11-15 17:25:03Z" duration="2.006780" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties />
+    <test-suite type="Assembly" id="1012" name="EnemyVerification.EditorTests.dll" fullname="C:/Jogos/Unity/ArchMage_3dGame/Temp/SurvivalPlayVerification/Library/ScriptAssemblies/EnemyVerification.EditorTests.dll" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-15 17:25:01Z" end-time="2026-11-15 17:25:03Z" duration="1.976810" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="19776" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+      </properties>
+      <test-suite type="TestFixture" id="1008" name="EnemyAssetSuite" fullname="EnemyAssetSuite" classname="EnemyAssetSuite" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-15 17:25:01Z" end-time="2026-11-15 17:25:03Z" duration="1.973343" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1010" name="ExistingHealthRegression" fullname="EnemyAssetSuite.ExistingHealthRegression" methodname="ExistingHealthRegression" classname="EnemyAssetSuite" runstate="Runnable" seed="1658263111" result="Passed" start-time="2026-11-15 17:25:01Z" end-time="2026-11-15 17:25:01Z" duration="0.030422" asserts="0">
+          <properties />
+          <output><![CDATA[PASS Survival Edit: HP, invulnerabilidade, cura e morte unica.
+]]></output>
+        </test-case>
+        <test-case id="1009" name="ExistingPlayerCombatRegression" fullname="EnemyAssetSuite.ExistingPlayerCombatRegression" methodname="ExistingPlayerCombatRegression" classname="EnemyAssetSuite" runstate="Runnable" seed="1545135765" result="Passed" start-time="2026-11-15 17:25:01Z" end-time="2026-11-15 17:25:01Z" duration="0.068162" asserts="0">
+          <properties />
+          <output><![CDATA[[Combat] 0,020 EVENTO 0
+[Combat] 0,020 SOLICITACAO 1 tipo=0
+[Combat] 0,020 ACEITO 1
+[Combat] 0,020 EVENTO 1
+[Combat] 0,020 INSTANCIADO 1
+[Combat] 0,020 EVENTO 1
+[Combat] 0,020 SOLICITACAO 2 tipo=0
+[Combat] 0,020 REJEITADO cooldown
+[Combat] 0,020 SOLICITACAO 3 tipo=0
+[Combat] 0,020 ACEITO 3
+[Combat] 0,020 SOLICITACAO 4 tipo=0
+[Combat] 0,020 REJEITADO pendente
+[Combat] 0,020 EVENTO 3
+[Combat] 0,020 INSTANCIADO 3
+[Combat] 0,020 EVENTO 3
+[Combat] 0,020 EVENTO 3
+[Combat] 0,020 CANCELADO desativado
+[Combat] 0,020 EVENTO 3
+[Combat] 0,020 EVENTO 3
+[Combat] 0,020 EVENTO 3
+[Combat] 0,020 EVENTO 3
+[Combat] 0,020 CANCELADO desativado
+[Combat] 0,020 EVENTO 3
+[Combat] 0,020 EVENTO 3
+[Combat] 0,020 EVENTO 3
+[Combat] 0,020 SOLICITACAO 5 tipo=0
+[Combat] 0,020 ACEITO 5
+[Combat] 0,020 EVENTO 5
+[Combat] 0,020 INSTANCIADO 5
+[Combat] 0,020 EVENTO 5
+Underdog: mira XZ, zona morta, offset, evento, disparo unico, cooldown e cancelamento passaram.
+]]></output>
+        </test-case>
+        <test-case id="1011" name="ExistingPrefabsAreUpdatedWithBackups" fullname="EnemyAssetSuite.ExistingPrefabsAreUpdatedWithBackups" methodname="ExistingPrefabsAreUpdatedWithBackups" classname="EnemyAssetSuite" runstate="Runnable" seed="501086566" result="Passed" start-time="2026-11-15 17:25:01Z" end-time="2026-11-15 17:25:03Z" duration="1.830368" asserts="0">
+          <properties />
+          <output><![CDATA[PASS Enemy AI Presets: perfis, backup, GUIDs, Controller copiado, evento/ataque/Hit/Death preservados, prefab duplicado e alteracoes nao salvas rejeitados.
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
