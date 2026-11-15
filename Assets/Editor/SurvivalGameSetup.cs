@@ -218,6 +218,7 @@ public static class SurvivalGameSetup
         locomotion.AddChild(Clip("Running_Strafe_Left", "PlayerLeft", true), Vector2.left);
         locomotion.AddChild(Clip("Running_Strafe_Right", "PlayerRight", true), Vector2.right);
         var idle = State(machine, "Locomotion", locomotion);
+        PlayerMovementSetup.ConfigureAnimator(controller);
         machine.defaultState = idle;
         var dodge = Tree(controller, "Dash", true);
         string[] dodges = { "Dodge_Forward", "Dodge_Backward", "Dodge_Left", "Dodge_Right" };

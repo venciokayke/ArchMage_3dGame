@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-15 18:31:29Z" end-time="2026-11-15 18:31:30Z" duration="0,3662858">
+  <test-suite type="TestSuite" id="1005" name="ArchMage_3dGame" fullname="ArchMage_3dGame" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-15 18:31:29Z" end-time="2026-11-15 18:31:30Z" duration="0.366286" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties />
+    <test-suite type="Assembly" id="1008" name="StartVerification.EditorTests.dll" fullname="C:/Jogos/Unity/ArchMage_3dGame/Temp/StartSceneVerification/Library/ScriptAssemblies/StartVerification.EditorTests.dll" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-15 18:31:29Z" end-time="2026-11-15 18:31:30Z" duration="0.347167" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="32356" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+      </properties>
+      <test-suite type="TestFixture" id="1006" name="MovementAnimatorTests" fullname="MovementAnimatorTests" classname="MovementAnimatorTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-15 18:31:29Z" end-time="2026-11-15 18:31:30Z" duration="0.345216" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1007" name="OnlyLocomotionRateChangesInActualController" fullname="MovementAnimatorTests.OnlyLocomotionRateChangesInActualController" methodname="OnlyLocomotionRateChangesInActualController" classname="MovementAnimatorTests" runstate="Runnable" seed="1136585330" result="Passed" start-time="2026-11-15 18:31:29Z" end-time="2026-11-15 18:31:30Z" duration="0.333717" asserts="0">
+          <properties />
+          <output><![CDATA[PASS actual Player Animator: backup/GUID, clips/eventos, Dash/ataques/Hit/Death preservados; somente LocomotionRate configurado.
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
