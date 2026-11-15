@@ -44,8 +44,10 @@ public class CombatFeedback : MonoBehaviour
 
     void Restore()
     {
-        if (renderers == null) return;
-        for (int i = 0; i < renderers.Length; i++) if (renderers[i] != null) renderers[i].SetPropertyBlock(originais[i]);
+        // A recarga de scripts pode restaurar Renderer[] sem os PropertyBlocks nativos.
+        if (renderers == null || originais == null) return;
+        for (int i = 0; i < renderers.Length && i < originais.Length; i++)
+            if (renderers[i] != null && originais[i] != null) renderers[i].SetPropertyBlock(originais[i]);
     }
     void Death() { if (efeitoMorte != null) Instantiate(efeitoMorte, transform.position + Vector3.up * 0.6f, Quaternion.identity); }
     void OnDisable() { Restore(); }

@@ -68,3 +68,17 @@ Para aplicar: abrir UnderdogSurvival fora do Play Mode, salvar trabalho pendente
 Pendentes exclusivamente no Editor interativo: validar sensacao/animacoes dos modelos reais, Mage junto de paredes/colunas reais, dash real do jogador no grupo, tres magias, cinco ondas completas com combate, derrota/reinicio e Profiler com 15-25 agentes. Roteiro e todos os parametros em Docs/EnemyAI.md. Nao declarar esses testes manuais concluidos com base na compilacao ou nas fixtures sinteticas. Mudanca de HP/velocidade pode exigir ajuste fino posterior sem alterar a composicao das ondas.
 
 Estado de retomada: runtime, ferramenta segura e suites concluidos; nao refazer CP1/CP2. Proxima sessao deve aplicar/validar na arena e corrigir apenas problemas observados. O arquivo nao rastreado Assets/Generated/UnderdogSurvival/EditorBuildSettings.backup.txt.meta apareceu no import do Editor; foi preservado e ficou fora dos commits de IA. Commits locais de implementacao: e4de539 e 30e7d51; o commit deste checkpoint sucede ambos.
+
+## CP4 concluido — partida bloqueada pelo Pause do Editor (2026-11-15)
+
+Usuario relatou que Iniciar/Enter nao respondiam e confirmou que o botao Pause da Unity estava azul. Com o Editor pausado, os frames de gameplay e callbacks de inicio nao avancam. Nao foi identificado defeito novo no binding do botao ou na progressao das ondas. O log do Editor tambem registra NullReferenceException em CombatFeedback.Restore/OnDisable apos recompilacoes; essa excecao pode acionar Error Pause. Nao foi possivel inspecionar ou alterar o estado vivo do Editor por Pipeline (indisponivel nesta Unity 2022.3).
+
+Causa da excecao reproduzida: durante recarga de scripts, Renderer[] pode ser restaurado sem o cache nativo MaterialPropertyBlock[]; Restore verificava apenas renderers, mas acessava originais[i]. Agora recusa cache nulo/incompleto e entradas nulas, mantendo a restauracao normal quando o cache existe. Mudanca restrita a CombatFeedback.cs; nenhum ajuste em WaveManager, HUD, input, IA ou configuracao de ondas.
+
+Arquivos: Assets/Scripts/Combat/CombatFeedback.cs; Assets/Tests/Editor/CombatFeedbackSelfCheck.cs (+ meta); Docs/Validation/StartResume-EditMode.xml; este checkpoint. Menu de verificacao: Tools > Underdog > Check Combat Feedback (Edit Mode).
+
+Validacoes: regressao nova falhou antes da correcao com a mesma NullReferenceException da linha 48 (XML anterior guardado em Temp/StartResumeCheck/feedback-before.xml); apos correcao, runner Unity 2022.3 EditMode 4/4 PASS, incluindo vida, PlayerCombat e presets de IA existentes. Testa cache ausente, vazio, entradas nulas, Renderer removido e restauracao normal de propriedades. Compilacao de todos os scripts passou, com os dois avisos anteriores. Nao equivale a teste interativo de inicio da partida.
+
+Alteracoes locais encontradas e preservadas: Melee/Fast/Ranged.prefab, UnderdogSurvival.unity (ajuste de fonte), nova pasta EnemyAI_20261115_143647 e seus metas. Nao inclui-las no commit desta correcao. Checkpoint anterior d667a11 permanece como baseline de IA.
+
+Aplicacao/teste manual pendente: parar Play, aguardar compilacao, limpar erros antigos do Console, entrar novamente em Play e garantir que Pause nao esteja azul. Testar Iniciar, repetir com Enter e observar o comeco da primeira onda. Error Pause pode continuar habilitado; nao ocultar erros novos. Na proxima sessao, consultar este checkpoint e confirmar o teste no Editor antes de investigar outros sistemas.
