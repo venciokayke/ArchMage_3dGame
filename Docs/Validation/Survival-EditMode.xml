@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Passed" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-15 01:00:10Z" end-time="2026-11-15 01:00:16Z" duration="5,8637894">
+  <test-suite type="TestSuite" id="1006" name="SurvivalPlayVerification" fullname="SurvivalPlayVerification" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-15 01:00:10Z" end-time="2026-11-15 01:00:16Z" duration="5.863789" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties />
+    <test-suite type="Assembly" id="1010" name="SurvivalVerification.EditTests.dll" fullname="C:/Jogos/Unity/ArchMage_3dGame/Temp/SurvivalPlayVerification/Library/ScriptAssemblies/SurvivalVerification.EditTests.dll" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-15 01:00:10Z" end-time="2026-11-15 01:00:16Z" duration="5.824397" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="5992" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+      </properties>
+      <test-suite type="TestFixture" id="1007" name="SurvivalAssetSuite" fullname="SurvivalAssetSuite" classname="SurvivalAssetSuite" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-15 01:00:10Z" end-time="2026-11-15 01:00:16Z" duration="5.821429" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1009" name="GenerateActualAnimationsEffectsEnemiesAndNavigation" fullname="SurvivalAssetSuite.GenerateActualAnimationsEffectsEnemiesAndNavigation" methodname="GenerateActualAnimationsEffectsEnemiesAndNavigation" classname="SurvivalAssetSuite" runstate="Runnable" seed="1693689480" result="Passed" start-time="2026-11-15 01:00:10Z" end-time="2026-11-15 01:00:15Z" duration="4.881320" asserts="0">
+          <properties />
+          <output><![CDATA[PASS Asset integration: real KayKit clips/rig mask, effects, three enemy prefabs, navmesh paths, HUD, unchanged camera.
+]]></output>
+        </test-case>
+        <test-case id="1008" name="HealthAndExistingCombat" fullname="SurvivalAssetSuite.HealthAndExistingCombat" methodname="HealthAndExistingCombat" classname="SurvivalAssetSuite" runstate="Runnable" seed="985769423" result="Passed" start-time="2026-11-15 01:00:15Z" end-time="2026-11-15 01:00:16Z" duration="0.916377" asserts="0">
+          <properties />
+          <output><![CDATA[PASS Survival Edit: HP, invulnerabilidade, cura e morte unica.
+[Combat] 0,000 EVENTO 0
+[Combat] 0,000 SOLICITACAO 1 tipo=0
+[Combat] 0,000 ACEITO 1
+[Combat] 0,000 EVENTO 1
+[Combat] 0,000 INSTANCIADO 1
+[Combat] 0,000 EVENTO 1
+[Combat] 0,000 SOLICITACAO 2 tipo=0
+[Combat] 0,000 REJEITADO cooldown
+[Combat] 0,000 SOLICITACAO 3 tipo=0
+[Combat] 0,000 ACEITO 3
+[Combat] 0,000 SOLICITACAO 4 tipo=0
+[Combat] 0,000 REJEITADO pendente
+[Combat] 0,000 EVENTO 3
+[Combat] 0,000 INSTANCIADO 3
+[Combat] 0,000 EVENTO 3
+[Combat] 0,000 EVENTO 3
+[Combat] 0,000 CANCELADO desativado
+[Combat] 0,000 EVENTO 3
+[Combat] 0,000 EVENTO 3
+[Combat] 0,000 EVENTO 3
+[Combat] 0,000 EVENTO 3
+[Combat] 0,000 CANCELADO desativado
+[Combat] 0,000 EVENTO 3
+[Combat] 0,000 EVENTO 3
+[Combat] 0,000 EVENTO 3
+[Combat] 0,000 SOLICITACAO 5 tipo=0
+[Combat] 0,000 ACEITO 5
+[Combat] 0,000 EVENTO 5
+[Combat] 0,000 INSTANCIADO 5
+[Combat] 0,000 EVENTO 5
+Underdog: mira XZ, zona morta, offset, evento, disparo unico, cooldown e cancelamento passaram.
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

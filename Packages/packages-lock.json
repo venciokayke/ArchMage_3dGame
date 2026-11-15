@@ -86,7 +86,7 @@
       }
     },
     "com.unity.render-pipelines.universal": {
-      "version": "17.5.0",
+      "version": "14.0.12",
       "depth": 0,
       "source": "builtin",
       "dependencies": {
@@ -154,7 +154,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ugui": {
-      "version": "2.5.0",
+      "version": "1.0.0",
       "depth": 0,
       "source": "builtin",
       "dependencies": {

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(Vida))]
@@ -28,6 +29,13 @@ public class EnemyAI : MonoBehaviour
 
     [Header("Morte")]
     public float tempoParaSumir = 3f;
+    [Header("Sobrevivencia")]
+    public bool usarNavMesh;
+    public bool usarAnimationEvent;
+    public bool ataqueDistancia;
+    public float distanciaMinima = 4f;
+    public Projectile projetil;
+    public float velocidadeProjetil = 10f;
 
     private CharacterController controller;
     private Animator animator;
@@ -40,12 +48,28 @@ public class EnemyAI : MonoBehaviour
     private Vector3 velocidadeVertical;
     private float proximoAtaque;
     private float momentoDoGolpe = -1f;
+    private NavMeshAgent agent;
+    private float proximoCaminho;
+    private bool suspenso;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         vida = GetComponent<Vida>();
+        agent = GetComponent<NavMeshAgent>();
+        if (usarNavMesh && (agent == null || !agent.isOnNavMesh))
+        {
+            Debug.LogError("EnemyAI precisa nascer no NavMesh com NavMeshAgent.", this);
+            suspenso = true;
+        }
+        if (agent != null)
+        {
+            agent.updatePosition = false;
+            agent.updateRotation = false;
+            agent.speed = velocidade;
+            agent.stoppingDistance = alcanceAtaque * 0.8f;
+        }
 
         vida.aoReceberDano.AddListener(AoReceberDano);
         vida.aoMorrer.AddListener(AoMorrer);
@@ -56,7 +80,7 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        if (estado == Estado.Morto)
+        if (estado == Estado.Morto || suspenso)
         {
             return;
         }
@@ -66,6 +90,7 @@ public class EnemyAI : MonoBehaviour
             || (vidaAlvo != null && vidaAlvo.EstaMorto))
         {
             estado = Estado.Parado;
+            if (agent != null && agent.isOnNavMesh) agent.isStopped = true;
         }
         else
         {
@@ -87,12 +112,33 @@ public class EnemyAI : MonoBehaviour
                 break;
         }
 
+        if (usarNavMesh && alvo != null && vidaAlvo != null && !vidaAlvo.EstaMorto && alvo.gameObject.activeInHierarchy)
+        {
+            bool recuar = ataqueDistancia && DistanciaHorizontal(alvo.position) < distanciaMinima;
+            bool bloqueado = ataqueDistancia && !LinhaLivre();
+            bool mover = estado == Estado.Perseguindo || recuar || bloqueado;
+            if (agent.isOnNavMesh)
+            {
+                agent.stoppingDistance = recuar || bloqueado ? 0.2f : alcanceAtaque * 0.8f;
+                agent.isStopped = !mover;
+                if (mover && Time.time >= proximoCaminho)
+                {
+                    Vector3 destino = recuar ? transform.position - DirecaoParaAlvo() * 3 : alvo.position;
+                    if (NavMesh.SamplePosition(destino, out var hit, 2, agent.areaMask)) agent.SetDestination(hit.position);
+                    proximoCaminho = Time.time + 0.2f;
+                }
+                direcao = mover ? Vector3.ClampMagnitude(agent.desiredVelocity / Mathf.Max(0.1f, velocidade), 1) : Vector3.zero;
+            }
+            else direcao = Vector3.zero;
+        }
+
         AplicarGolpePendente();
 
         SetFloat("Speed", direcao.magnitude);
 
         controller.Move(direcao * velocidade * Time.deltaTime);
         AplicarGravidade();
+        if (usarNavMesh && agent.isOnNavMesh) agent.nextPosition = transform.position;
     }
 
     private void EquiparArma()
@@ -173,7 +219,7 @@ public class EnemyAI : MonoBehaviour
 
     private void TentarAtacar()
     {
-        if (Time.time < proximoAtaque)
+        if (Time.time < proximoAtaque || momentoDoGolpe >= 0 || AnimacaoDeAtaque() || (ataqueDistancia && !LinhaLivre()))
         {
             return;
         }
@@ -191,12 +237,34 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        if (momentoDoGolpe < 0f || Time.time < momentoDoGolpe)
+        if (usarAnimationEvent || momentoDoGolpe < 0f || Time.time < momentoDoGolpe)
         {
             return;
         }
 
+        ExecutarGolpe();
+    }
+
+    public void AplicarGolpe()
+    {
+        if (usarAnimationEvent) ExecutarGolpe();
+    }
+
+    private void ExecutarGolpe()
+    {
+        if (momentoDoGolpe < 0 || estado == Estado.Morto || suspenso) return;
         momentoDoGolpe = -1f;
+        if (alvo == null || !alvo.gameObject.activeInHierarchy || (vidaAlvo != null && vidaAlvo.EstaMorto)) return;
+        if (!LinhaLivre()) return;
+        if (ataqueDistancia)
+        {
+            if (projetil == null) return;
+            Vector3 direction = DirecaoParaAlvo();
+            if (direction.sqrMagnitude < 0.001f) return;
+            var shot = Instantiate(projetil, transform.position + Vector3.up * 1.1f + direction * 0.65f, Quaternion.LookRotation(direction));
+            shot.Configurar(transform, dano, velocidadeProjetil, true);
+            return;
+        }
 
         // Só acerta se o jogador ainda estiver no alcance quando o golpe desce.
         if (DistanciaHorizontal(alvo.position) > alcanceAtaque * 1.2f)
@@ -216,7 +284,7 @@ public class EnemyAI : MonoBehaviour
 
     private void AoReceberDano(float quantidade)
     {
-        SetTrigger("Hit");
+        if (!vida.EstaMorto && momentoDoGolpe < 0 && !AnimacaoDeAtaque()) SetTrigger("Hit");
 
         // Leva dano de longe (magia): passa a perseguir mesmo fora do raio de detecção.
         if (estado == Estado.Parado && alvo != null)
@@ -236,7 +304,41 @@ public class EnemyAI : MonoBehaviour
         SetTrigger("Die");
 
         controller.enabled = false;
+        if (agent != null) agent.enabled = false;
+        foreach (var collider in GetComponentsInChildren<Collider>()) collider.enabled = false;
         Destroy(gameObject, tempoParaSumir);
+    }
+
+    bool AnimacaoDeAtaque()
+    {
+        return animator != null && (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") ||
+            (animator.IsInTransition(0) && animator.GetNextAnimatorStateInfo(0).IsName("Attack")));
+    }
+
+    bool LinhaLivre()
+    {
+        if (alvo == null) return false;
+        Vector3 origin = transform.position + Vector3.up;
+        Vector3 delta = alvo.position + Vector3.up - origin;
+        foreach (var hit in Physics.RaycastAll(origin, delta.normalized, delta.magnitude, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+            if (!hit.transform.IsChildOf(transform) && hit.collider.GetComponentInParent<Vida>() == null) return false;
+        return true;
+    }
+
+    public void Desarmar()
+    {
+        suspenso = true;
+        momentoDoGolpe = -1;
+        if (agent != null && agent.isOnNavMesh) agent.isStopped = true;
+        SetFloat("Speed", 0);
+        ResetTrigger("Attack");
+    }
+
+    void OnDestroy()
+    {
+        if (vida == null) return;
+        vida.aoReceberDano.RemoveListener(AoReceberDano);
+        vida.aoMorrer.RemoveListener(AoMorrer);
     }
 
     private Vector3 DirecaoParaAlvo()

@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     public float velocidadeDash = 12f;
     public float duracaoDash = 0.2f;
     public float cooldownDash = 1f;
+    public GameObject efeitoDash;
 
     private bool estaDashando = false;
     private float tempoDashRestante;
@@ -20,11 +21,13 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
 
     private Vector3 velocidadeVertical;
+    private bool movimentoDirecional;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        movimentoDirecional = animator != null && System.Array.Exists(animator.parameters, p => p.name == "MoveX");
         if (controller == null || animator == null)
         {
             Debug.LogError("PlayerMovement requer CharacterController e Animator.", this);
@@ -49,6 +52,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         animator.SetFloat("Speed", estaDashando ? 1f : direcao.magnitude);
+        if (movimentoDirecional)
+        {
+            Vector3 local = transform.InverseTransformDirection(estaDashando ? direcaoDash : direcao);
+            animator.SetFloat("MoveX", local.x);
+            animator.SetFloat("MoveZ", local.z);
+        }
 
         if (estaDashando)
             ExecutarDash();
@@ -81,6 +90,9 @@ public class PlayerMovement : MonoBehaviour
         {
             direcaoDash = transform.forward;
         }
+        int dash = Animator.StringToHash("Base Layer.Dash");
+        if (animator.HasState(0, dash)) animator.CrossFadeInFixedTime(dash, 0.035f, 0);
+        if (efeitoDash != null) Instantiate(efeitoDash, transform.position + Vector3.up * 0.3f, Quaternion.identity);
     }
 
     void ExecutarDash()
@@ -101,5 +113,10 @@ public class PlayerMovement : MonoBehaviour
     {
         estaDashando = false;
         velocidadeVertical = Vector3.zero;
+        if (animator != null && animator.runtimeAnimatorController != null)
+        {
+            animator.SetFloat("Speed", 0);
+            if (movimentoDirecional) { animator.SetFloat("MoveX", 0); animator.SetFloat("MoveZ", 0); }
+        }
     }
 }
